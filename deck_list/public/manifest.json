@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "덱 리스트",
+  "name": "유희왕 덱 리스트",
   "icons": [
     {
       "src": "favicon.ico",
