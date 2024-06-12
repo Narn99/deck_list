@@ -1,4 +1,4 @@
-export interface Card {
+export interface CardType {
   name: string;
   img_url: string;
   type: "monster" | "magic" | "trap" | "token";
@@ -8,9 +8,9 @@ export interface Card {
   quantity: 1 | 2 | 3;
 }
 
-export interface Deck {
+export interface DeckType {
   name: string;
-  MainDeck: Card[];
-  ExtraDeck?: Card[];
-  Token?: Card[];
+  MainDeck: CardType[];
+  ExtraDeck?: CardType[];
+  Token?: CardType[];
 }

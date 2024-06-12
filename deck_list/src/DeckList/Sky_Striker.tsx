@@ -1,8 +1,8 @@
-import { Card } from "../Types/CardDataType";
+import { CardType } from "../Types/CardDataType";
 
 // 섬도희 데이터
 
-const Sky_Striker_Main: Card[] = [
+const Sky_Striker_Main: CardType[] = [
   {
     name: "섬도희-레이",
     img_url: "images/섬도희/레이.webp",
