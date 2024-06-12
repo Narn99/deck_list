@@ -1,15 +1,15 @@
 // 카드 이미지를 불러와서 CSS를 적용
 
 import styled from "@emotion/styled";
-import { CardType } from "Types/CardDataType";
+import { CardType } from "../Types/CardDataType";
 import React from "react";
 
 const CardContainer = styled("div")`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: 100%;
+  width: 20%;
+  height: 20%;
 `;
 
 const CardImageBox = styled("img")`

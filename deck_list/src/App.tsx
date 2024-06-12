@@ -1,5 +1,5 @@
-import DeckPage from "Pages/DeckPage/DeckPage";
-import MainPage from "Pages/MainPage/MainPage";
+import DeckPage from "./Pages/DeckPage/DeckPage";
+import MainPage from "./Pages/MainPage/MainPage";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
