@@ -5,10 +5,30 @@
 // grade가 낮은 것부터 높은 순으로 보여줄 것 (몇 레벨, 몇 링크)
 // 한 줄에 10장, 클릭하면 모달이 뜨고 모달창에선 카드 돌려보기 css로
 
-import React from "react";
+import styled from "@emotion/styled";
+import { CardType } from "../Types/CardDataType";
+import Card from "./Card";
 
-const CardList = () => {
-  return <div>CardList</div>;
+const CardListContainer = styled("div")`
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  width: 100%;
+  height: 100%;
+`;
+
+const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
+  const deckList = deckCards.flatMap((card) =>
+    Array.from({ length: card.quantity }, () => card)
+  );
+
+  return (
+    <CardListContainer>
+      {deckList.map((card) => (
+        <Card cardData={card} />
+      ))}
+    </CardListContainer>
+  );
 };
 
 export default CardList;

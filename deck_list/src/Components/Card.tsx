@@ -2,14 +2,17 @@
 
 import styled from "@emotion/styled";
 import { CardType } from "../Types/CardDataType";
-import React from "react";
+import Rare from "../CSS/Rare";
 
 const CardContainer = styled("div")`
+  display: flex;
+  position: relative;
+
   align-items: center;
   justify-content: center;
 
-  width: 20%;
-  height: 20%;
+  width: 100%;
+  height: 100%;
 `;
 
 const CardImageBox = styled("img")`
@@ -17,13 +20,6 @@ const CardImageBox = styled("img")`
   height: 100%;
 
   z-index: 1;
-`;
-
-const CSSBox = styled("div")`
-  width: 100%;
-  height: 100%;
-
-  z-index: 100;
 `;
 
 const Card = ({ cardData }: { cardData: CardType }) => {
@@ -40,7 +36,7 @@ const Card = ({ cardData }: { cardData: CardType }) => {
   return (
     <CardContainer>
       <CardImageBox src={img_url} alt={name} />
-      <CSSBox className={rare} />
+      <Rare rare={rare} type={type} />
     </CardContainer>
   );
 };

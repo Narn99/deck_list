@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/Deck/:theme" element={<DeckPage />} />
+        <Route path="/deck/:theme" element={<DeckPage />} />
       </Routes>
     </Router>
   );
