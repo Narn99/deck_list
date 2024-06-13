@@ -12,7 +12,7 @@ const testCards: CardType[] = [
     img_url: "/Images/Sky_Striker/레이.webp",
     type: "monster",
     grade: 4,
-    rare: "super",
+    rare: "secret",
     quantity: 3,
   },
   {
@@ -20,7 +20,7 @@ const testCards: CardType[] = [
     img_url: "/Images/Sky_Striker/로제.webp",
     type: "monster",
     grade: 4,
-    rare: "super",
+    rare: "special",
     quantity: 1,
   },
   {

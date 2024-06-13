@@ -4,7 +4,15 @@ export interface CardType {
   type: "monster" | "magic" | "trap" | "token";
   grade?: number;
   extra?: "fusion" | "synchro" | "xyz" | "link";
-  rare?: "normal" | "rare" | "super" | "ultra" | "secret" | "special" | "cross";
+  rare?:
+    | "normal"
+    | "rare"
+    | "super"
+    | "ultra"
+    | "secret"
+    | "special"
+    | "cross"
+    | "parallel";
   quantity: 1 | 2 | 3;
 }
 

@@ -36,7 +36,7 @@ const Card = ({ cardData }: { cardData: CardType }) => {
   return (
     <CardContainer>
       <CardImageBox src={img_url} alt={name} />
-      <Rare rare={rare} type={type} />
+      <Rare rare={rare} type={type} level={grade} />
     </CardContainer>
   );
 };

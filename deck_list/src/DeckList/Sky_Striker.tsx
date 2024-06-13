@@ -2,12 +2,18 @@ import { CardType } from "../Types/CardDataType";
 
 // 섬도희 데이터
 
-const Sky_Striker_Main: CardType[] = [
+export const Sky_Striker_key = {
+  name: "섬도희 덱",
+  img_url: "images/섬도희/레이.webp",
+};
+
+export const Sky_Striker_Main: CardType[] = [
   {
     name: "섬도희-레이",
     img_url: "images/섬도희/레이.webp",
     type: "monster",
     grade: 4,
+    rare: "special",
     quantity: 3,
   },
   {
@@ -15,24 +21,28 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/섬도희/로제.webp",
     type: "monster",
     grade: 4,
+    rare: "special",
     quantity: 1,
   },
   {
     name: "섬도기동-링케이지",
     img_url: "images/섬도희/링케이지.webp",
     type: "magic",
+    rare: "secret",
     quantity: 3,
   },
   {
     name: "섬도기관-멀티롤",
     img_url: "images/섬도희/멀티롤.webp",
     type: "magic",
+    rare: "super",
     quantity: 1,
   },
   {
     name: "섬도기-샤크캐논",
     img_url: "images/섬도희/샤크캐논.webp",
     type: "magic",
+    rare: "rare",
     quantity: 1,
   },
   {
@@ -40,6 +50,7 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/섬도희/섬도희토큰.webp",
     type: "token",
     grade: 1,
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -48,18 +59,21 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 1,
     extra: "link",
+    rare: "secret",
     quantity: 2,
   },
   {
     name: "섬도술식-애프터버너",
     img_url: "images/섬도희/애프터버너.webp",
     type: "magic",
+    rare: "rare",
     quantity: 1,
   },
   {
     name: "섬도기-위도우앵커",
     img_url: "images/섬도희/위도우앵커.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 3,
   },
   {
@@ -68,12 +82,14 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 2,
     extra: "link",
+    rare: "special",
     quantity: 1,
   },
   {
     name: "섬도기-호넷비트",
     img_url: "images/섬도희/호넷비트.webp",
     type: "magic",
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -82,6 +98,7 @@ const Sky_Striker_Main: CardType[] = [
     grade: 1,
     type: "monster",
     extra: "link",
+    rare: "cross",
     quantity: 3,
   },
   {
@@ -90,6 +107,7 @@ const Sky_Striker_Main: CardType[] = [
     grade: 1,
     type: "monster",
     extra: "link",
+    rare: "super",
     quantity: 2,
   },
   {
@@ -98,6 +116,7 @@ const Sky_Striker_Main: CardType[] = [
     grade: 2,
     type: "monster",
     extra: "link",
+    rare: "super",
     quantity: 1,
   },
   {
@@ -106,6 +125,7 @@ const Sky_Striker_Main: CardType[] = [
     grade: 2,
     type: "monster",
     extra: "link",
+    rare: "special",
     quantity: 2,
   },
   {
@@ -113,12 +133,14 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/섬도희/키아노스.webp",
     grade: 1,
     type: "monster",
+    rare: "ultra",
     quantity: 1,
   },
   {
     name: "섬도기동-인게이지",
     img_url: "images/섬도희/인게이지.webp",
     type: "magic",
+    rare: "secret",
     quantity: 3,
   },
   {
@@ -127,54 +149,63 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 1,
     extra: "link",
+    rare: "super",
     quantity: 1,
   },
   {
     name: "갑부 고블린",
     img_url: "images/범용/마법/갑부고블린.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 3,
   },
   {
     name: "무덤의 지명자",
     img_url: "images/범용/마법/무명자.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 2,
   },
   {
     name: "삼전의 재",
     img_url: "images/범용/마법/삼전의재.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 1,
   },
   {
     name: "삼전의 호",
     img_url: "images/범용/마법/삼전의호.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 1,
   },
   {
     name: "탐욕의 항아리",
     img_url: "images/범용/마법/탐욕.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 1,
   },
   {
     name: "증원",
     img_url: "images/범용/마법/증원.webp",
     type: "magic",
+    rare: "cross",
     quantity: 1,
   },
   {
     name: "카이저 콜로세움",
     img_url: "images/범용/마법/카이저콜로세움.webp",
     type: "magic",
+    rare: "ultra",
     quantity: 1,
   },
   {
     name: "해피의 깃털",
     img_url: "images/범용/마법/해피의깃털.webp",
     type: "magic",
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -182,6 +213,7 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/범용/몬스터/니비루.webp",
     type: "monster",
     grade: 11,
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -189,6 +221,7 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/범용/몬스터/니비루_토큰.webp",
     grade: 11,
     type: "token",
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -196,6 +229,7 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/범용/몬스터/이펙트뵐러.webp",
     type: "monster",
     grade: 1,
+    rare: "ultra",
     quantity: 2,
   },
   {
@@ -203,6 +237,7 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/범용/몬스터/증식의G.webp",
     type: "monster",
     grade: 2,
+    rare: "secret",
     quantity: 3,
   },
   {
@@ -210,18 +245,21 @@ const Sky_Striker_Main: CardType[] = [
     img_url: "images/범용/몬스터/하루우라라.webp",
     type: "monster",
     grade: 3,
+    rare: "secret",
     quantity: 3,
   },
   {
     name: "무한포영",
     img_url: "images/범용/몬스터/무한포영.webp",
     type: "trap",
+    rare: "ultra",
     quantity: 3,
   },
   {
     name: "길항승부",
     img_url: "images/범용/몬스터/길항승부.webp",
     type: "trap",
+    rare: "parallel",
     quantity: 1,
   },
   {
@@ -230,6 +268,7 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 2,
     extra: "link",
+    rare: "ultra",
     quantity: 1,
   },
   {
@@ -238,6 +277,7 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 2,
     extra: "link",
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -246,6 +286,7 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 3,
     extra: "link",
+    rare: "secret",
     quantity: 1,
   },
   {
@@ -254,6 +295,7 @@ const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 4,
     extra: "link",
+    rare: "cross",
     quantity: 1,
   },
 ];
