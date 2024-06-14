@@ -22,3 +22,8 @@ export interface DeckType {
   ExtraDeck?: CardType[];
   Token?: CardType[];
 }
+
+export interface CardProps {
+  cardData: CardType;
+  onCardClick: () => void;
+}

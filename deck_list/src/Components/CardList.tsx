@@ -8,6 +8,8 @@
 import styled from "@emotion/styled";
 import { CardType } from "../Types/CardDataType";
 import Card from "./Card";
+import CardModal from "./CardModal";
+import { useState } from "react";
 
 const CardListContainer = styled("div")`
   display: grid;
@@ -22,11 +24,27 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
     Array.from({ length: card.quantity }, () => card)
   );
 
+  const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
+
+  const handleCardImage = (card: CardType) => {
+    setSelectedCard(card);
+  };
+
   return (
     <CardListContainer>
-      {deckList.map((card) => (
-        <Card cardData={card} />
+      {deckList.map((card, idx) => (
+        <Card
+          cardData={card}
+          key={`card-${idx}`}
+          onCardClick={() => handleCardImage(card)}
+        />
       ))}
+      {selectedCard && (
+        <CardModal
+          cardData={selectedCard}
+          onCardClick={() => setSelectedCard(null)}
+        />
+      )}
     </CardListContainer>
   );
 };
