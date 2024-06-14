@@ -4,15 +4,15 @@ export interface CardType {
   type: "monster" | "magic" | "trap" | "token";
   grade?: number;
   extra?: "fusion" | "synchro" | "xyz" | "link";
-  rare?:
-    | "normal"
-    | "rare"
-    | "super"
-    | "ultra"
-    | "secret"
-    | "cross"
-    | "parallel";
+  rare?: "normal" | "rare" | "super" | "ultra" | "secret" | "cross";
+
   quantity: 1 | 2 | 3;
+}
+
+export interface totalDeckType {
+  name: string;
+  eng: string;
+  img_url: string;
 }
 
 export interface DeckType {

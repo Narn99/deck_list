@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import Card from "./Card";
-import { CardProps, CardType } from "../Types/CardDataType";
+import { CardType } from "../Types/CardDataType";
 import { keyframes } from "@emotion/css";
 import { useEffect, useState } from "react";
 
@@ -49,6 +49,8 @@ const ModalContainer = styled("div")<{ rotationX: number; rotationY: number }>`
 
 const ModalBackground = styled("div")`
   position: fixed;
+  top: 0;
+  left: 0;
 
   background-color: black;
   opacity: 0.8;

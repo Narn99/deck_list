@@ -35,7 +35,6 @@ const Card = ({
     grade = 1,
     extra = undefined,
     rare = "normal",
-    quantity,
   } = cardData;
 
   return (
@@ -44,6 +43,7 @@ const Card = ({
       <Rare
         rare={rare}
         type={type}
+        extra={extra}
         level={grade}
         rotationX={rotationX}
         rotationY={rotationY}

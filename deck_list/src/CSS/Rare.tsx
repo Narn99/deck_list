@@ -26,7 +26,7 @@ const OuterContainer = styled("div")`
 `;
 
 const EntireCard = styled("div")<{
-  rare: "normal" | "rare" | "super" | "ultra" | "secret" | "cross" | "parallel";
+  rare: "normal" | "rare" | "super" | "ultra" | "secret" | "cross";
   rotation: number;
   rotationX: number;
   rotationY: number;
@@ -113,7 +113,7 @@ const EntireCard = styled("div")<{
     `}
 
   ${(props) =>
-    props.rare === "parallel" &&
+    props.rare === "rare" &&
     css`
       background: linear-gradient(
           105deg,
@@ -168,7 +168,7 @@ const EntireCard = styled("div")<{
 
 
     ${(props) =>
-    props.rare !== "parallel" &&
+    props.rare !== "rare" &&
     props.rare !== "cross" &&
     css`
       background: linear-gradient(
@@ -567,12 +567,14 @@ const Rare = ({
   rare,
   type,
   level,
+  extra,
   rotationX,
   rotationY,
 }: {
-  rare: "normal" | "rare" | "super" | "ultra" | "secret" | "cross" | "parallel";
+  rare: "normal" | "rare" | "super" | "ultra" | "secret" | "cross";
   type: "monster" | "magic" | "trap" | "token";
   level: number;
+  extra: "fusion" | "synchro" | "xyz" | "link" | undefined;
   rotationX: number;
   rotationY: number;
 }) => {
@@ -608,6 +610,7 @@ const Rare = ({
           </NameContainer>
           <GradeBox>
             {grade &&
+              extra !== "link" &&
               Array.from({ length: level }).map((_, index) => (
                 <LevelBox key={index} grade={grade} rotation={sumRotation} />
               ))}
