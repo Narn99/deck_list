@@ -2,8 +2,9 @@
 
 import styled from "@emotion/styled";
 import Card from "./Card";
-import { CardProps } from "../Types/CardDataType";
+import { CardProps, CardType } from "../Types/CardDataType";
 import { keyframes } from "@emotion/css";
+import { useEffect, useState } from "react";
 
 const modalFadein = keyframes`
         from {
@@ -14,7 +15,7 @@ const modalFadein = keyframes`
         }
 `;
 
-const ModalContainer = styled("div")`
+const ModalContainer = styled("div")<{ rotationX: number; rotationY: number }>`
   position: fixed;
 
   display: flex;
@@ -25,11 +26,25 @@ const ModalContainer = styled("div")`
 
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: perspective(80rem) translate(-50%, -50%)
+    rotateX(${(props) => props.rotationX}deg)
+    rotateY(${(props) => props.rotationY}deg);
 
   z-index: 5000;
 
   animation: ${modalFadein} 0.3s ease-in-out forwards;
+
+  @media screen and (max-width: 1300px) {
+    width: 35vw; /* 태블릿 화면 */
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 50vw; /* 태블릿 화면 */
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 75vw; /* 모바일 화면 */
+  }
 `;
 
 const ModalBackground = styled("div")`
@@ -44,13 +59,73 @@ const ModalBackground = styled("div")`
   z-index: 4000;
 `;
 
-const CardModal = ({ cardData, onCardClick }: CardProps) => {
+const CardModal = ({
+  cardData,
+  onClose,
+}: {
+  cardData: CardType;
+  onClose: () => void;
+}) => {
+  const [rotationX, setRotationX] = useState(0);
+  const [rotationY, setRotationY] = useState(0);
+  const [isLeaving, setIsLeaving] = useState(false);
+
+  // 마우스가 모달을 떠날 때 회전 애니메이션이 완만하게 멈추도록 처리
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isLeaving) {
+      intervalId = setInterval(() => {
+        // 회전 각도를 서서히 줄여나감
+        setRotationX((prevX) => prevX * 0.95);
+        setRotationY((prevY) => prevY * 0.95);
+
+        // 회전 각도가 충분히 작아지면 clearInterval 호출
+        if (Math.abs(rotationX) < 1 && Math.abs(rotationY) < 1) {
+          clearInterval(intervalId);
+          setRotationX(0);
+          setRotationY(0);
+          setIsLeaving(false);
+        }
+      }, 10); // 10ms 간격으로 반복 실행
+    }
+
+    return () => {
+      clearInterval(intervalId); // 컴포넌트가 언마운트될 때 clearInterval
+    };
+  }, [isLeaving, rotationX, rotationY]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isLeaving) {
+      setIsLeaving(false);
+    }
+
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = clientX - left - width / 2;
+    const y = clientY - top - height / 2;
+
+    setRotationX((y / height) * 50);
+    setRotationY((x / width) * -50);
+
+    console.log(rotationX, rotationY);
+  };
+
+  const handleMouseLeave = () => {
+    setIsLeaving(true);
+  };
+
   return (
     <>
-      <ModalContainer>
-        <Card cardData={cardData} onCardClick={onCardClick} />
+      <ModalContainer
+        rotationX={rotationX}
+        rotationY={rotationY}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Card cardData={cardData} onCardClick={onClose} />
       </ModalContainer>
-      <ModalBackground />
+      <ModalBackground onClick={onClose} />
     </>
   );
 };

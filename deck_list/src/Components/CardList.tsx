@@ -30,6 +30,10 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
     setSelectedCard(card);
   };
 
+  const handleModal = () => {
+    setSelectedCard(null);
+  };
+
   return (
     <CardListContainer>
       {deckList.map((card, idx) => (
@@ -40,10 +44,7 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
         />
       ))}
       {selectedCard && (
-        <CardModal
-          cardData={selectedCard}
-          onCardClick={() => setSelectedCard(null)}
-        />
+        <CardModal cardData={selectedCard} onClose={handleModal} />
       )}
     </CardListContainer>
   );
