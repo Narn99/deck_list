@@ -10,7 +10,6 @@ export interface CardType {
     | "super"
     | "ultra"
     | "secret"
-    | "special"
     | "cross"
     | "parallel";
   quantity: 1 | 2 | 3;
@@ -26,4 +25,6 @@ export interface DeckType {
 export interface CardProps {
   cardData: CardType;
   onCardClick: () => void;
+  rotationX?: number;
+  rotationY?: number;
 }

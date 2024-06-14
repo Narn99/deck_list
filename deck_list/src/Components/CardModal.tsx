@@ -77,8 +77,8 @@ const CardModal = ({
     if (isLeaving) {
       intervalId = setInterval(() => {
         // 회전 각도를 서서히 줄여나감
-        setRotationX((prevX) => prevX * 0.95);
-        setRotationY((prevY) => prevY * 0.95);
+        setRotationX((prevX) => prevX * 0.9);
+        setRotationY((prevY) => prevY * 0.9);
 
         // 회전 각도가 충분히 작아지면 clearInterval 호출
         if (Math.abs(rotationX) < 1 && Math.abs(rotationY) < 1) {
@@ -107,8 +107,6 @@ const CardModal = ({
 
     setRotationX((y / height) * 50);
     setRotationY((x / width) * -50);
-
-    console.log(rotationX, rotationY);
   };
 
   const handleMouseLeave = () => {
@@ -123,7 +121,12 @@ const CardModal = ({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        <Card cardData={cardData} onCardClick={onClose} />
+        <Card
+          cardData={cardData}
+          onCardClick={onClose}
+          rotationX={rotationX}
+          rotationY={rotationY}
+        />
       </ModalContainer>
       <ModalBackground onClick={onClose} />
     </>

@@ -20,7 +20,7 @@ const testCards: CardType[] = [
     img_url: "/Images/Sky_Striker/로제.webp",
     type: "monster",
     grade: 4,
-    rare: "special",
+    rare: "cross",
     quantity: 1,
   },
   {

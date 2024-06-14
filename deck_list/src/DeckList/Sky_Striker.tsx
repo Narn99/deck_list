@@ -13,7 +13,7 @@ export const Sky_Striker_Main: CardType[] = [
     img_url: "images/섬도희/레이.webp",
     type: "monster",
     grade: 4,
-    rare: "special",
+    rare: "cross",
     quantity: 3,
   },
   {
@@ -21,7 +21,7 @@ export const Sky_Striker_Main: CardType[] = [
     img_url: "images/섬도희/로제.webp",
     type: "monster",
     grade: 4,
-    rare: "special",
+    rare: "cross",
     quantity: 1,
   },
   {
@@ -82,7 +82,7 @@ export const Sky_Striker_Main: CardType[] = [
     type: "monster",
     grade: 2,
     extra: "link",
-    rare: "special",
+    rare: "cross",
     quantity: 1,
   },
   {
@@ -125,7 +125,7 @@ export const Sky_Striker_Main: CardType[] = [
     grade: 2,
     type: "monster",
     extra: "link",
-    rare: "special",
+    rare: "cross",
     quantity: 2,
   },
   {

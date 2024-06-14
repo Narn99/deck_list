@@ -22,7 +22,12 @@ const CardImageBox = styled("img")`
   z-index: 1;
 `;
 
-const Card = ({ cardData, onCardClick }: CardProps) => {
+const Card = ({
+  cardData,
+  onCardClick,
+  rotationX = 0,
+  rotationY = 0,
+}: CardProps) => {
   const {
     name,
     img_url,
@@ -36,7 +41,13 @@ const Card = ({ cardData, onCardClick }: CardProps) => {
   return (
     <CardContainer onClick={onCardClick}>
       <CardImageBox src={img_url} alt={name} />
-      <Rare rare={rare} type={type} level={grade} />
+      <Rare
+        rare={rare}
+        type={type}
+        level={grade}
+        rotationX={rotationX}
+        rotationY={rotationY}
+      />
     </CardContainer>
   );
 };
