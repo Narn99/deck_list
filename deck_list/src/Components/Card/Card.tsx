@@ -1,8 +1,8 @@
 // 카드 이미지를 불러와서 CSS를 적용
 
 import styled from "@emotion/styled";
-import { CardProps } from "../Types/CardDataType";
-import Rare from "../CSS/Rare";
+import { CardProps } from "../../Types/CardDataType";
+import Rare from "../../CSS/Rare";
 
 const CardContainer = styled("div")`
   display: flex;

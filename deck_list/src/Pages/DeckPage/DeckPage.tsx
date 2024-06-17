@@ -1,13 +1,141 @@
-import { useParams } from "react-router-dom";
-import CardList from "../../Components/CardList";
+import { useNavigate, useParams } from "react-router-dom";
+import CardList from "../../Components/Card/CardList";
 import { CardType } from "../../Types/CardDataType";
 import { totalDecks } from "../../Decks/Index";
+import styled from "@emotion/styled";
+import { useEffect } from "react";
 
 interface DeckType {
   name: string;
   img_url: string;
   deck: CardType[];
 }
+
+const PageContainer = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 3vh 0 3vh 0;
+`;
+
+const BackButton = styled("button")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-self: flex-start; */
+
+  border: 1px solid white;
+  border-radius: 10px;
+
+  background-color: white;
+
+  font-size: 1vw;
+  font-weight: bold;
+
+  padding: 1vw;
+
+  box-sizing: border-box;
+
+  width: 10vw;
+  height: 3vw;
+
+  @media (max-width: 1200px) {
+    font-size: 2.5vw;
+
+    width: 20vw;
+    height: 6vw;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 4vw;
+
+    width: 30vw;
+    height: 8vw;
+  }
+`;
+
+const DeckName = styled("p")`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-size: 3vw;
+  font-weight: bold;
+
+  @media (max-width: 1200px) {
+    font-size: 4vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 5vw;
+  }
+`;
+
+const ClassContainer = styled("div")<{ top?: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  border: 1px solid white;
+  border-radius: ${(props) => props.top && "10px 10px 0 0"};
+
+  padding-left: 1rem;
+  margin: 0;
+
+  box-sizing: border-box;
+
+  width: 100%;
+`;
+
+// 덱 오류시 빨간색 텍스트로 표시
+const DeckClass = styled("p")<{ err?: boolean }>`
+  color: ${(props) => (props.err ? "red" : "white")};
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-size: 1.5vw;
+  font-weight: bold;
+
+  @media (max-width: 1200px) {
+    font-size: 2.5vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 4vw;
+  }
+`;
+
+const DeckErr = styled("p")<{ err?: boolean }>`
+  color: ${(props) => (props.err ? "red" : "white")};
+
+  font-size: 1vw;
+
+  margin-left: 1rem;
+
+  @media (max-width: 1200px) {
+    font-size: 2vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 3vw;
+  }
+`;
+
+const CardListBox = styled("div")<{ bot?: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  border: 1px solid white;
+  border-radius: ${(props) => props.bot && "0 0 10px 10px"};
+
+  padding: 1rem;
+
+  box-sizing: border-box;
+
+  width: 100%;
+`;
 
 const DeckPage = () => {
   const { theme } = useParams(); // useParams를 사용하여 URL 파라미터를 객체 형태로 가져옴
@@ -16,6 +144,60 @@ const DeckPage = () => {
   const deckList: DeckType | undefined = totalDecks.find(
     (deck) => theme === deck.eng
   );
+
+  const bg = deckList?.img_url;
+
+  const DeckContainer = styled("div")`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    position: relative;
+
+    width: 95%;
+
+    ::before {
+      content: "";
+      background-image: url(${bg});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.4;
+
+      width: 90%;
+      height: 90%;
+
+      position: absolute;
+
+      justify-self: center;
+      align-self: center;
+
+      border-radius: 50%;
+      border: 5px solid white;
+
+      z-index: -100;
+    }
+  `;
+
+  const navigate = useNavigate();
+
+  const goToPrev = () => {
+    navigate(-1);
+  };
+
+  const goToMain = () => {
+    navigate(`/`);
+  };
+
+  useEffect(() => {
+    if (!deckList) {
+      // 에러 모달 띄워주고
+      setTimeout(() => {
+        goToPrev();
+      }, 3000);
+    }
+  });
 
   // 타입 순서를 결정하는 객체
   const typeOrder: { [key in "monster" | "magic" | "trap"]: number } = {
@@ -144,23 +326,62 @@ const DeckPage = () => {
     .sort((a, b) => (sortCards([a, b], tokensSortOrder)[0] === a ? -1 : 1));
 
   return (
-    <div>
-      <h1>Deck Page</h1>
+    <PageContainer>
+      <BackButton onClick={goToMain}>돌아가기</BackButton>
       {deckList ? (
-        <div>
-          <h2>{deckList.name}</h2>
-          <h4>메인 덱</h4>
-          {mainDeck && <CardList deckCards={mainDeck} />} {/* 메인 덱 렌더링 */}
-          <h4>엑스트라 덱</h4>
-          {extraDeck && <CardList deckCards={extraDeck} />}{" "}
-          {/* 엑스트라 덱 렌더링 */}
-          <h4>토큰</h4>
-          {tokens && <CardList deckCards={tokens} />} {/* 토큰 카드 렌더링 */}
-        </div>
+        <>
+          <DeckName>{deckList.name}</DeckName>
+          <DeckContainer>
+            <ClassContainer top>
+              <DeckClass
+                err={
+                  !(mainDeck && mainDeck.length >= 40 && mainDeck.length <= 60)
+                }
+              >
+                메인 덱 -{" "}
+                {mainDeck?.length ? `${mainDeck.length} 장` : `알 수 없음`}
+              </DeckClass>
+              {!(
+                mainDeck &&
+                mainDeck.length >= 40 &&
+                mainDeck.length <= 60
+              ) && <DeckErr>※ 메인 덱은 40∼60장 사이로 구성해주세요.</DeckErr>}
+            </ClassContainer>
+            {mainDeck && (
+              <CardListBox>
+                <CardList deckCards={mainDeck} />
+              </CardListBox>
+            )}
+            <ClassContainer>
+              <DeckClass err={!(extraDeck && extraDeck.length <= 15)}>
+                엑스트라 덱 -{" "}
+                {extraDeck?.length ? `${extraDeck.length} 장` : `알 수 없음`}
+              </DeckClass>
+              {!(extraDeck && extraDeck.length <= 15) && (
+                <DeckErr>※ 엑스트라 덱은 15장 미만으로 구성해주세요.</DeckErr>
+              )}
+            </ClassContainer>
+            {extraDeck && (
+              <CardListBox>
+                <CardList deckCards={extraDeck} />
+              </CardListBox>
+            )}
+            {tokens && (
+              <>
+                <ClassContainer>
+                  <DeckClass>토큰</DeckClass>
+                </ClassContainer>
+                <CardListBox bot>
+                  <CardList deckCards={tokens} />
+                </CardListBox>
+              </>
+            )}
+          </DeckContainer>
+        </>
       ) : (
-        <p>No deck found for the theme "{theme}"</p>
+        <h2>No deck found for the theme "{theme}"</h2>
       )}
-    </div>
+    </PageContainer>
   );
 };
 

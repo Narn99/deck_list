@@ -1,0 +1,19 @@
+/* 웹폰트 불러오기 */
+@font-face {
+  font-family: "GyeonggiTitleM";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* body에 적용 */
+body {
+  font-family: "GyeonggiTitleM", sans-serif;
+
+  background-color: rgb(25, 25, 25);
+
+  color: white;
+
+  font-size: 2vw;
+}

@@ -6,7 +6,7 @@
 // 한 줄에 10장, 클릭하면 모달이 뜨고 모달창에선 카드 돌려보기 css로
 
 import styled from "@emotion/styled";
-import { CardType } from "../Types/CardDataType";
+import { CardType } from "../../Types/CardDataType";
 import Card from "./Card";
 import CardModal from "./CardModal";
 import { useState } from "react";
@@ -15,8 +15,18 @@ const CardListContainer = styled("div")`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
+  gap: 0.4rem;
+
   width: 100%;
   height: 100%;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const CardList = ({ deckCards }: { deckCards: CardType[] }) => {

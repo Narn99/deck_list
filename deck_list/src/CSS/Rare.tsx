@@ -354,11 +354,11 @@ const NameBox = styled("div")`
   height: 100%;
 `;
 const IconBox = styled("div")<{ icon: boolean; rotation: number }>`
-  width: 14%;
-  height: 96%;
+  width: 10%;
+  height: 85%;
 
-  margin-right: 0.8%;
-  margin-top: 0.4%;
+  margin-right: 2%;
+  margin-top: 1%;
 
   ${(props) =>
     props.icon &&

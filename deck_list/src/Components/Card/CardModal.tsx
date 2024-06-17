@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import Card from "./Card";
-import { CardType } from "../Types/CardDataType";
+import { CardType } from "../../Types/CardDataType";
 import { keyframes } from "@emotion/css";
 import { useEffect, useState } from "react";
 

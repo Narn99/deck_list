@@ -50,6 +50,8 @@ const DeckName = styled("div")`
 
   background-color: rgba(0, 0, 0, 0.4);
 
+  text-shadow: 1px 0 20px rgb(90, 90, 90);
+
   width: 100%;
   height: 100%;
 `;
@@ -79,7 +81,7 @@ const MainPage = () => {
           onMouseLeave={handleOnMouseLeave}
           onClick={() => handleClickDeck(deck.eng)}
         >
-          <DeckBox src="/Images/Sky_Striker/레이.webp" alt={deck.name} />
+          <DeckBox src={deck.img_url} alt={deck.name} />
           {onMouseDeck === deck && <DeckName>{deck.name}</DeckName>}
         </DeckContainer>
       ))}
