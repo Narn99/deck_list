@@ -20,7 +20,7 @@ const PageContainer = styled("div")`
   padding: 3vh 0 3vh 0;
 `;
 
-const BackButton = styled("button")`
+const BackButton = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +31,10 @@ const BackButton = styled("button")`
 
   background-color: white;
 
-  font-size: 1vw;
-  font-weight: bold;
+  color: black;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  text-shadow: none;
 
   padding: 1vw;
 
@@ -40,6 +42,8 @@ const BackButton = styled("button")`
 
   width: 10vw;
   height: 3vw;
+
+  cursor: pointer;
 
   @media (max-width: 1200px) {
     font-size: 2.5vw;
@@ -80,7 +84,7 @@ const ClassContainer = styled("div")<{ top?: boolean }>`
   border: 1px solid white;
   border-radius: ${(props) => props.top && "10px 10px 0 0"};
 
-  padding-left: 1rem;
+  padding-left: 2vw;
   margin: 0;
 
   box-sizing: border-box;
@@ -98,6 +102,7 @@ const DeckClass = styled("p")<{ err?: boolean }>`
 
   font-size: 1.5vw;
   font-weight: bold;
+  text-shadow: 1px 0 5px rgba(60, 60, 60);
 
   @media (max-width: 1200px) {
     font-size: 2.5vw;
@@ -111,6 +116,7 @@ const DeckErr = styled("p")<{ err?: boolean }>`
   color: ${(props) => (props.err ? "red" : "white")};
 
   font-size: 1vw;
+  text-shadow: 1px 0 5px rgba(60, 60, 60);
 
   margin-left: 1rem;
 
@@ -130,7 +136,7 @@ const CardListBox = styled("div")<{ bot?: boolean }>`
   border: 1px solid white;
   border-radius: ${(props) => props.bot && "0 0 10px 10px"};
 
-  padding: 1rem;
+  padding: 1.5vw;
 
   box-sizing: border-box;
 
@@ -155,6 +161,10 @@ const DeckPage = () => {
 
     position: relative;
 
+    border-radius: 10px;
+
+    box-shadow: 1px 0 20px white;
+
     width: 95%;
 
     ::before {
@@ -175,6 +185,8 @@ const DeckPage = () => {
 
       border-radius: 50%;
       border: 5px solid white;
+
+      box-shadow: 1px 0 10px white;
 
       z-index: -100;
     }
@@ -317,9 +329,13 @@ const DeckPage = () => {
     .filter((card) => !card.extra && card.type !== "token")
     .sort((a, b) => (sortCards([a, b], mainDeckSortOrder)[0] === a ? -1 : 1));
 
+  const mainQ = mainDeck?.reduce((a, b) => a + b.quantity, 0);
+
   const extraDeck = deckList?.deck
     .filter((card) => card.extra && card.type !== "token")
     .sort((a, b) => (sortCards([a, b], extraDeckSortOrder)[0] === a ? -1 : 1));
+
+  const extraQ = extraDeck?.reduce((a, b) => a + b.quantity, 0);
 
   const tokens = deckList?.deck
     .filter((card) => card.type === "token")
@@ -327,25 +343,18 @@ const DeckPage = () => {
 
   return (
     <PageContainer>
-      <BackButton onClick={goToMain}>돌아가기</BackButton>
+      <BackButton onClick={goToMain}>홈으로</BackButton>
       {deckList ? (
         <>
           <DeckName>{deckList.name}</DeckName>
           <DeckContainer>
             <ClassContainer top>
-              <DeckClass
-                err={
-                  !(mainDeck && mainDeck.length >= 40 && mainDeck.length <= 60)
-                }
-              >
-                메인 덱 -{" "}
-                {mainDeck?.length ? `${mainDeck.length} 장` : `알 수 없음`}
+              <DeckClass err={!(mainQ && mainQ >= 40 && mainQ <= 60)}>
+                메인 덱 - {mainQ ? `${mainQ} 장` : `알 수 없음`}
               </DeckClass>
-              {!(
-                mainDeck &&
-                mainDeck.length >= 40 &&
-                mainDeck.length <= 60
-              ) && <DeckErr>※ 메인 덱은 40∼60장 사이로 구성해주세요.</DeckErr>}
+              {!(mainQ && mainQ >= 40 && mainQ <= 60) && (
+                <DeckErr>※ 메인 덱은 40∼60장 사이로 구성해주세요.</DeckErr>
+              )}
             </ClassContainer>
             {mainDeck && (
               <CardListBox>
@@ -353,11 +362,10 @@ const DeckPage = () => {
               </CardListBox>
             )}
             <ClassContainer>
-              <DeckClass err={!(extraDeck && extraDeck.length <= 15)}>
-                엑스트라 덱 -{" "}
-                {extraDeck?.length ? `${extraDeck.length} 장` : `알 수 없음`}
+              <DeckClass err={!(extraQ && extraQ <= 15)}>
+                엑스트라 덱 - {extraQ ? `${extraQ} 장` : `알 수 없음`}
               </DeckClass>
-              {!(extraDeck && extraDeck.length <= 15) && (
+              {!(extraQ && extraQ <= 15) && (
                 <DeckErr>※ 엑스트라 덱은 15장 미만으로 구성해주세요.</DeckErr>
               )}
             </ClassContainer>

@@ -15,7 +15,11 @@ const CardListContainer = styled("div")`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  gap: 0.4rem;
+  gap: 0.5vw;
+
+  background-color: rgba(255, 255, 255, 0.2);
+
+  box-shadow: 1px 0 10px white;
 
   width: 100%;
   height: 100%;
