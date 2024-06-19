@@ -4,6 +4,7 @@ import { CardType } from "../../Types/CardDataType";
 import { totalDecks } from "../../Decks/Index";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import { keyframes } from "@emotion/react";
 
 interface DeckType {
   name: string;
@@ -44,6 +45,16 @@ const BackButton = styled("div")`
   height: 3vw;
 
   cursor: pointer;
+
+  transition: transform 50ms linear;
+
+  :hover {
+    transform: scale(1.05);
+  }
+
+  :not(:hover) {
+    transform: scale(1);
+  }
 
   @media (max-width: 1200px) {
     font-size: 2.5vw;
