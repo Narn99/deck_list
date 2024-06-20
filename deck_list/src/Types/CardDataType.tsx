@@ -24,7 +24,10 @@ export interface DeckType {
 
 export interface CardProps {
   cardData: CardType;
-  onCardClick: () => void;
+  onCardClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   rotationX?: number;
   rotationY?: number;
+  setCardScale?: React.Dispatch<
+    React.SetStateAction<{ width: number; height: number }>
+  >;
 }

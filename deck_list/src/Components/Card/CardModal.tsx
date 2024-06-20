@@ -3,19 +3,16 @@
 import styled from "@emotion/styled";
 import Card from "./Card";
 import { CardType } from "../../Types/CardDataType";
-import { keyframes } from "@emotion/css";
 import { useEffect, useState } from "react";
 
-const modalFadein = keyframes`
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-`;
-
-const ModalContainer = styled("div")<{ rotationX: number; rotationY: number }>`
+const ModalContainer = styled("div")<{
+  rotationX: number;
+  rotationY: number;
+  startX: number;
+  startY: number;
+  cardWidth: number;
+  isClosing: boolean;
+}>`
   position: fixed;
 
   display: flex;
@@ -32,7 +29,40 @@ const ModalContainer = styled("div")<{ rotationX: number; rotationY: number }>`
 
   z-index: 5000;
 
-  animation: ${modalFadein} 0.3s ease-in-out forwards;
+  animation: ${(props) =>
+    !props.isClosing
+      ? `moveAndRotate 500ms linear`
+      : `closeAndRotate 500ms linear`};
+
+  @keyframes moveAndRotate {
+    0% {
+      width: ${(props) => `${props.cardWidth}px`};
+      top: ${({ startY }) => `${startY}px`};
+      left: ${({ startX }) => `${startX}px`};
+      transform: translate(-50%, -50%) rotateY(0deg);
+    }
+    100% {
+      width: 25vw;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(360deg);
+    }
+  }
+
+  @keyframes closeAndRotate {
+    0% {
+      width: 25vw;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(0deg);
+    }
+    100% {
+      width: ${(props) => `${props.cardWidth}px`};
+      top: ${({ startY }) => `${startY}px`};
+      left: ${({ startX }) => `${startX}px`};
+      transform: translate(-50%, -50%) rotateY(360deg);
+    }
+  }
 
   @media screen and (max-width: 1300px) {
     width: 35vw; /* 태블릿 화면 */
@@ -63,14 +93,19 @@ const ModalBackground = styled("div")`
 
 const CardModal = ({
   cardData,
+  cardPosition,
+  cardWidth,
   onClose,
 }: {
   cardData: CardType;
+  cardPosition: { top: number; left: number };
+  cardWidth: number;
   onClose: () => void;
 }) => {
   const [rotationX, setRotationX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
   const [isLeaving, setIsLeaving] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   // 마우스가 모달을 떠날 때 회전 애니메이션이 완만하게 멈추도록 처리
   useEffect(() => {
@@ -115,22 +150,33 @@ const CardModal = ({
     setIsLeaving(true);
   };
 
+  const handleOnClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 450);
+  };
+
   return (
     <>
       <ModalContainer
         rotationX={rotationX}
         rotationY={rotationY}
+        startX={cardPosition.left}
+        startY={cardPosition.top}
+        cardWidth={cardWidth}
+        isClosing={isClosing}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
         <Card
           cardData={cardData}
-          onCardClick={onClose}
           rotationX={rotationX}
           rotationY={rotationY}
+          onCardClick={handleOnClose}
         />
       </ModalContainer>
-      <ModalBackground onClick={onClose} />
+      <ModalBackground onClick={handleOnClose} />
     </>
   );
 };

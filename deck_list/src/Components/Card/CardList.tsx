@@ -19,7 +19,10 @@ const CardListContainer = styled("div")`
 
   background-color: rgba(255, 255, 255, 0.2);
 
-  box-shadow: 1px 0 10px white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px white;
+
+  padding: 10px;
 
   width: 100%;
   height: 100%;
@@ -39,13 +42,27 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
   );
 
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
+  const [cardPosition, setCardPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
+  const [cardScale, setCardScale] = useState({ width: 0, height: 0 });
 
-  const handleCardImage = (card: CardType) => {
+  const handleCardImage = (
+    card: CardType,
+    e: React.MouseEvent<HTMLDivElement>
+  ) => {
+    const { top, left } = e.currentTarget.getBoundingClientRect();
+    setCardPosition({
+      top: top + cardScale.height / 2,
+      left: left + cardScale.width / 2,
+    });
     setSelectedCard(card);
   };
 
   const handleModal = () => {
     setSelectedCard(null);
+    setCardPosition(null);
   };
 
   return (
@@ -54,11 +71,17 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
         <Card
           cardData={card}
           key={`card-${idx}`}
-          onCardClick={() => handleCardImage(card)}
+          setCardScale={setCardScale}
+          onCardClick={(e) => handleCardImage(card, e)}
         />
       ))}
-      {selectedCard && (
-        <CardModal cardData={selectedCard} onClose={handleModal} />
+      {selectedCard && cardPosition && (
+        <CardModal
+          cardData={selectedCard}
+          cardPosition={cardPosition}
+          cardWidth={cardScale.width}
+          onClose={handleModal}
+        />
       )}
     </CardListContainer>
   );
