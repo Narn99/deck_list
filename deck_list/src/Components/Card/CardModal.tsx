@@ -5,6 +5,13 @@ import Card from "./Card";
 import { CardType } from "../../Types/CardDataType";
 import { useEffect, useState } from "react";
 
+const backface: CardType = {
+  name: "뒷면",
+  img_url: "/Images/Common/Back/뒷면.webp",
+  type: "monster",
+  quantity: 1,
+};
+
 const ModalContainer = styled("div")<{
   rotationX: number;
   rotationY: number;
@@ -29,6 +36,77 @@ const ModalContainer = styled("div")<{
 
   z-index: 5000;
 
+  backface-visibility: hidden;
+
+  animation: ${(props) =>
+    !props.isClosing
+      ? `moveAndRotate 500ms linear`
+      : `closeAndRotate 500ms linear`};
+
+  @keyframes moveAndRotate {
+    0% {
+      width: ${(props) => `${props.cardWidth}px`};
+      top: ${({ startY }) => `${startY}px`};
+      left: ${({ startX }) => `${startX}px`};
+      transform: translate(-50%, -50%) rotateY(180deg);
+    }
+    100% {
+      width: 25vw;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(900deg);
+    }
+  }
+
+  @keyframes closeAndRotate {
+    0% {
+      width: 25vw;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(180deg);
+    }
+    100% {
+      width: ${(props) => `${props.cardWidth}px`};
+      top: ${({ startY }) => `${startY}px`};
+      left: ${({ startX }) => `${startX}px`};
+      transform: translate(-50%, -50%) rotateY(900deg);
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    width: 35vw; /* 태블릿 화면 */
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 50vw; /* 태블릿 화면 */
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 75vw; /* 모바일 화면 */
+  }
+`;
+
+const CardBackBox = styled("div")<{
+  startX: number;
+  startY: number;
+  cardWidth: number;
+  isClosing: boolean;
+}>`
+  position: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* width: 25vw; */
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 4900;
+
+  /* backface-visibility: hidden; */
+
   animation: ${(props) =>
     !props.isClosing
       ? `moveAndRotate 500ms linear`
@@ -45,7 +123,7 @@ const ModalContainer = styled("div")<{
       width: 25vw;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) rotateY(360deg);
+      transform: translate(-50%, -50%) rotateY(720deg);
     }
   }
 
@@ -60,7 +138,7 @@ const ModalContainer = styled("div")<{
       width: ${(props) => `${props.cardWidth}px`};
       top: ${({ startY }) => `${startY}px`};
       left: ${({ startX }) => `${startX}px`};
-      transform: translate(-50%, -50%) rotateY(360deg);
+      transform: translate(-50%, -50%) rotateY(720deg);
     }
   }
 
@@ -154,7 +232,7 @@ const CardModal = ({
     setIsClosing(true);
     setTimeout(() => {
       onClose();
-    }, 450);
+    }, 470);
   };
 
   return (
@@ -176,6 +254,14 @@ const CardModal = ({
           onCardClick={handleOnClose}
         />
       </ModalContainer>
+      <CardBackBox
+        startX={cardPosition.left}
+        startY={cardPosition.top}
+        cardWidth={cardWidth}
+        isClosing={isClosing}
+      >
+        <Card cardData={backface} />
+      </CardBackBox>
       <ModalBackground onClick={handleOnClose} />
     </>
   );

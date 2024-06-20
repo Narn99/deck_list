@@ -16,6 +16,8 @@ const CardContainer = styled("div")`
   height: 100%;
 
   box-shadow: 5px 5px 10px black;
+
+  opacity: 0.9;
 `;
 
 const CardImageBox = styled("img")`
@@ -55,7 +57,7 @@ const Card = ({
   }, [setCardScale]);
 
   return (
-    <CardContainer ref={cardRef} onClick={(e) => onCardClick(e)}>
+    <CardContainer ref={cardRef} onClick={(e) => onCardClick && onCardClick(e)}>
       <CardImageBox src={img_url} alt={name} />
       <Rare
         rare={rare}
