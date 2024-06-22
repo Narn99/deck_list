@@ -143,7 +143,7 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
       {deckList.map((card, idx) => (
         <CardBox
           key={`card-${idx}`}
-          onMouseEnter={() => setOnHover(`${card.name}-${idx}`)}
+          onMouseOver={() => setOnHover(`${card.name}-${idx}`)}
           onMouseLeave={() => setOnHover("")}
           onClick={(e) => handleCardImage(card, e)}
         >

@@ -56,6 +56,17 @@ const DeckContainer = styled("div")`
 
   box-sizing: border-box;
   aspect-ratio: 1;
+
+  transition: transform 100ms linear;
+
+  :hover {
+    transform: scale(1.1);
+
+    z-index: 200;
+
+    box-shadow: 1px 0 15px rgba(170, 230, 255), -1px 0 15px rgba(170, 230, 255),
+      0 1px 15px rgba(170, 230, 255), 0 -1px 15px rgba(170, 230, 255);
+  }
 `;
 
 const DeckBox = styled("img")`
@@ -79,9 +90,11 @@ const DeckName = styled("div")`
   font-weight: bold;
   color: white;
 
-  background-color: rgba(0, 0, 0, 0.4);
+  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
+    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
+  text-align: center;
 
-  text-shadow: 1px 0 20px rgb(90, 90, 90);
+  background-color: rgba(0, 0, 0, 0.4);
 
   width: 100%;
   height: 100%;
@@ -92,14 +105,6 @@ const MainPage = () => {
 
   const navigate = useNavigate();
 
-  const handleOnMouseOver = (deck: totalDeckType) => {
-    setOnMouseDeck(deck);
-  };
-
-  const handleOnMouseLeave = () => {
-    setOnMouseDeck(null);
-  };
-
   const handleClickDeck = (link: string) => {
     navigate(`deck/${link}`);
   };
@@ -109,8 +114,8 @@ const MainPage = () => {
       <DeckListContainer>
         {totalDecks.map((deck) => (
           <DeckContainer
-            onMouseOver={() => handleOnMouseOver(deck)}
-            onMouseLeave={handleOnMouseLeave}
+            onMouseOver={() => setOnMouseDeck(deck)}
+            onMouseLeave={() => setOnMouseDeck(null)}
             onClick={() => handleClickDeck(deck.eng)}
           >
             <DeckBox src={deck.img_url} alt={deck.name} />
