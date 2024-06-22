@@ -7,14 +7,10 @@
   font-style: normal;
 }
 
-/* body에 적용 */
 body {
   font-family: "GyeonggiTitleM", sans-serif;
-
   background-color: rgb(25, 25, 25);
-
   color: white;
-
   font-size: 2vw;
   text-shadow: 1px 0 5px rgba(60, 60, 60);
 }

@@ -27,12 +27,80 @@ const CardListContainer = styled("div")`
   width: 100%;
   height: 100%;
 
+  cursor: pointer;
+
   @media (max-width: 1200px) {
     grid-template-columns: repeat(8, 1fr);
   }
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(5, 1fr);
+  }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
+const CardBox = styled("div")`
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  transition: transform 100ms linear;
+
+  :hover {
+    transform: scale(1.2);
+
+    z-index: 2000;
+  }
+`;
+
+const CardNameBox = styled("div")`
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  top: 0;
+  left: 0;
+
+  font-size: 1.1vw;
+  font-weight: bold;
+  color: white;
+
+  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
+    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0 10px rgba(170, 230, 255), -1px 0 10px rgba(170, 230, 255),
+    0 1px 10px rgba(170, 230, 255), 0 -1px 10px rgba(170, 230, 255);
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0 1vw 0 1vw;
+
+  z-index: 200;
+
+  white-space: pre-line;
+
+  box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    font-size: 2.2vw;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3.3vw;
   }
 `;
 
@@ -42,6 +110,7 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
   );
 
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
+  const [onHover, setOnHover] = useState<string>("");
   const [cardPosition, setCardPosition] = useState<{
     top: number;
     left: number;
@@ -65,15 +134,28 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
     setCardPosition(null);
   };
 
+  const spaceToEnter = (text: string) => {
+    return text.replace(/ /g, "\n");
+  };
+
   return (
     <CardListContainer>
       {deckList.map((card, idx) => (
-        <Card
-          cardData={card}
+        <CardBox
           key={`card-${idx}`}
-          setCardScale={setCardScale}
-          onCardClick={(e) => handleCardImage(card, e)}
-        />
+          onMouseEnter={() => setOnHover(`${card.name}-${idx}`)}
+          onMouseLeave={() => setOnHover("")}
+          onClick={(e) => handleCardImage(card, e)}
+        >
+          <Card
+            cardData={card}
+            setCardScale={setCardScale}
+            inModal={onHover === `${card.name}-${idx}`}
+          />
+          {onHover === `${card.name}-${idx}` && (
+            <CardNameBox>{spaceToEnter(card.name)}</CardNameBox>
+          )}
+        </CardBox>
       ))}
       {selectedCard && cardPosition && (
         <CardModal

@@ -5,7 +5,7 @@ import { CardProps } from "../../Types/CardDataType";
 import Rare from "../../CSS/Rare";
 import { useEffect, useRef } from "react";
 
-const CardContainer = styled("div")`
+const CardContainer = styled("div")<{ inModal: boolean }>`
   display: flex;
   position: relative;
 
@@ -17,7 +17,7 @@ const CardContainer = styled("div")`
 
   box-shadow: 5px 5px 10px black;
 
-  opacity: 0.9;
+  opacity: ${(props) => (props.inModal ? 1 : 0.85)};
 `;
 
 const CardImageBox = styled("img")`
@@ -33,6 +33,7 @@ const Card = ({
   rotationX = 0,
   rotationY = 0,
   setCardScale,
+  inModal,
 }: CardProps) => {
   const {
     name,
@@ -57,7 +58,11 @@ const Card = ({
   }, [setCardScale]);
 
   return (
-    <CardContainer ref={cardRef} onClick={(e) => onCardClick && onCardClick(e)}>
+    <CardContainer
+      ref={cardRef}
+      onClick={(e) => onCardClick && onCardClick(e)}
+      inModal={inModal}
+    >
       <CardImageBox src={img_url} alt={name} />
       <Rare
         rare={rare}

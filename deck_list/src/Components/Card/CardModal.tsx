@@ -98,14 +98,12 @@ const CardBackBox = styled("div")<{
   justify-content: center;
   align-items: center;
 
-  /* width: 25vw; */
-
   top: 50%;
   left: 50%;
 
-  z-index: 4900;
+  z-index: 4500;
 
-  /* backface-visibility: hidden; */
+  transform: translate(-50%, -50%);
 
   animation: ${(props) =>
     !props.isClosing
@@ -252,6 +250,7 @@ const CardModal = ({
           rotationX={rotationX}
           rotationY={rotationY}
           onCardClick={handleOnClose}
+          inModal
         />
       </ModalContainer>
       <CardBackBox
@@ -260,7 +259,7 @@ const CardModal = ({
         cardWidth={cardWidth}
         isClosing={isClosing}
       >
-        <Card cardData={backface} />
+        <Card cardData={backface} inModal />
       </CardBackBox>
       <ModalBackground onClick={handleOnClose} />
     </>

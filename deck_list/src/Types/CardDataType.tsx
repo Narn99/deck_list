@@ -30,4 +30,5 @@ export interface CardProps {
   setCardScale?: React.Dispatch<
     React.SetStateAction<{ width: number; height: number }>
   >;
+  inModal: boolean;
 }

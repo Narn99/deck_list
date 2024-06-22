@@ -4,7 +4,7 @@ import { CardType } from "../../Types/CardDataType";
 
 export const Sky_Striker_Main: CardType[] = [
   {
-    name: "섬도희-레이",
+    name: "섬도희 - 레이",
     img_url: "/Images/Sky_Striker/레이.webp",
     type: "monster",
     grade: 4,
@@ -12,7 +12,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 3,
   },
   {
-    name: "섬도희-로제",
+    name: "섬도희 - 로제",
     img_url: "/Images/Sky_Striker/로제.webp",
     type: "monster",
     grade: 4,
@@ -20,21 +20,21 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "섬도기동-링케이지",
+    name: "섬도기동 - 링케이지",
     img_url: "/Images/Sky_Striker/링케이지.webp",
     type: "magic",
     rare: "secret",
     quantity: 3,
   },
   {
-    name: "섬도기관-멀티롤",
+    name: "섬도기관 - 멀티롤",
     img_url: "/Images/Sky_Striker/멀티롤.webp",
     type: "magic",
     rare: "super",
     quantity: 1,
   },
   {
-    name: "섬도기-샤크캐논",
+    name: "섬도기 - 샤크캐논",
     img_url: "/Images/Sky_Striker/샤크캐논.webp",
     type: "magic",
     rare: "rare",
@@ -49,7 +49,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "섬도희-시즈쿠",
+    name: "섬도희 - 시즈쿠",
     img_url: "/Images/Sky_Striker/시즈쿠.webp",
     type: "monster",
     grade: 1,
@@ -58,21 +58,21 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 2,
   },
   {
-    name: "섬도술식-애프터버너",
+    name: "섬도술식 - 애프터버너",
     img_url: "/Images/Sky_Striker/애프터버너.webp",
     type: "magic",
     rare: "rare",
     quantity: 1,
   },
   {
-    name: "섬도기-위도우앵커",
+    name: "섬도기 - 위도우앵커",
     img_url: "/Images/Sky_Striker/위도우앵커.webp",
     type: "magic",
     rare: "ultra",
     quantity: 3,
   },
   {
-    name: "합체술식-인게이지 제로",
+    name: "합체술식 - 인게이지 제로",
     img_url: "/Images/Sky_Striker/인게이지_제로.webp",
     type: "monster",
     grade: 2,
@@ -81,14 +81,14 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "섬도기-호넷비트",
+    name: "섬도기 - 호넷비트",
     img_url: "/Images/Sky_Striker/호넷비트.webp",
     type: "magic",
     rare: "secret",
     quantity: 1,
   },
   {
-    name: "섬도희-카가리",
+    name: "섬도희 - 카가리",
     img_url: "/Images/Sky_Striker/카가리.webp",
     grade: 1,
     type: "monster",
@@ -97,7 +97,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 3,
   },
   {
-    name: "섬도희-하야테",
+    name: "섬도희 - 하야테",
     img_url: "/Images/Sky_Striker/하야테.webp",
     grade: 1,
     type: "monster",
@@ -106,7 +106,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 2,
   },
   {
-    name: "섬도희-지크",
+    name: "섬도희 - 지크",
     img_url: "/Images/Sky_Striker/지크.webp",
     grade: 2,
     type: "monster",
@@ -115,7 +115,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "섬도희-카멜리아",
+    name: "섬도희 - 카멜리아",
     img_url: "/Images/Sky_Striker/카멜리아.webp",
     grade: 2,
     type: "monster",
@@ -124,7 +124,7 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "미래의 주-키아노스",
+    name: "미래의 주 - 키아노스",
     img_url: "/Images/Sky_Striker/키아노스.webp",
     grade: 1,
     type: "monster",
@@ -132,14 +132,14 @@ export const Sky_Striker_Main: CardType[] = [
     quantity: 1,
   },
   {
-    name: "섬도기동-인게이지",
+    name: "섬도기동 - 인게이지",
     img_url: "/Images/Sky_Striker/인게이지.webp",
     type: "magic",
     rare: "secret",
     quantity: 3,
   },
   {
-    name: "섬도희-카이나",
+    name: "섬도희 - 카이나",
     img_url: "/Images/Sky_Striker/카이나.webp",
     type: "monster",
     grade: 1,

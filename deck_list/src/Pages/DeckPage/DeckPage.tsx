@@ -4,7 +4,6 @@ import { CardType } from "../../Types/CardDataType";
 import { totalDecks } from "../../Decks/Index";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import { keyframes } from "@emotion/react";
 
 interface DeckType {
   name: string;
@@ -25,7 +24,6 @@ const BackButton = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* align-self: flex-start; */
 
   border: 1px solid white;
   border-radius: 10px;
@@ -50,6 +48,8 @@ const BackButton = styled("div")`
 
   :hover {
     transform: scale(1.05);
+
+    background-color: #e2e2e2;
   }
 
   :not(:hover) {
@@ -76,14 +76,20 @@ const DeckName = styled("p")`
   justify-content: flex-start;
   align-items: center;
 
-  font-size: 3vw;
+  font-size: 4vw;
   font-weight: bold;
 
+  border-top: 2px dotted skyblue;
+  border-bottom: 2px dotted skyblue;
+  text-shadow: 0 0 30px chartreuse;
+
+  padding: 1.5vh 0 1.5vh 0;
+
   @media (max-width: 1200px) {
-    font-size: 4vw;
+    font-size: 6vw;
   }
   @media (max-width: 768px) {
-    font-size: 5vw;
+    font-size: 8vw;
   }
 `;
 
@@ -113,8 +119,10 @@ const DeckClass = styled("p")<{ err?: boolean }>`
 
   font-size: 1.5vw;
   font-weight: bold;
-  text-shadow: 1px 0 5px rgba(60, 60, 60);
-
+  text-shadow: ${(props) =>
+    props.err
+      ? `-1px 0 1px lightgray, 1px 0 1px lightgray, 0 1px 1px lightgray, 0 -1px 1px lightgray`
+      : `-1px 0 4px red, 1px 0 4px red, 0 1px 4px red, 0 -1px 4px red`};
   @media (max-width: 1200px) {
     font-size: 2.5vw;
   }
@@ -127,7 +135,7 @@ const DeckErr = styled("p")<{ err?: boolean }>`
   color: ${(props) => (props.err ? "red" : "white")};
 
   font-size: 1vw;
-  text-shadow: 1px 0 5px rgba(60, 60, 60);
+  text-shadow: -1px 0 2px red, 1px 0 2px red, 0 1px 2px red, 0 -1px 2px red;
 
   margin-left: 1rem;
 
@@ -184,7 +192,7 @@ const DeckPage = () => {
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      opacity: 0.4;
+      opacity: 0.75;
 
       width: 90%;
       height: 90%;

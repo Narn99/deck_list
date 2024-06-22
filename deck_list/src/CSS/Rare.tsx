@@ -39,65 +39,65 @@ const EntireCard = styled("div")<{
       background: linear-gradient(
           90deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           90deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           90deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           90deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           0deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           0deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           0deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         ),
         linear-gradient(
           0deg,
           transparent 40%,
-          rgba(255, 244, 148, 0.25) 45%,
-          rgba(244, 157, 255, 0.25) 50%,
-          rgba(136, 184, 255, 0.25) 50%,
+          rgba(255, 244, 148, 0.4) 45%,
+          rgba(244, 157, 255, 0.4) 50%,
+          rgba(136, 184, 255, 0.4) 50%,
           transparent 54%
         );
 
