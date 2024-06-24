@@ -5,10 +5,10 @@
 // grade가 낮은 것부터 높은 순으로 보여줄 것 (몇 레벨, 몇 링크)
 // 한 줄에 10장, 클릭하면 모달이 뜨고 모달창에선 카드 돌려보기 css로
 
-import styled from "@emotion/styled";
-import { CardType } from "../../Types/CardDataType";
 import Card from "./Card";
 import CardModal from "./CardModal";
+import { CardType } from "../../Types/CardDataType";
+import styled from "@emotion/styled";
 import { useState } from "react";
 
 const CardListContainer = styled("div")`

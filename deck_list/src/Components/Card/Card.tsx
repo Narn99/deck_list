@@ -1,9 +1,10 @@
 // 카드 이미지를 불러와서 CSS를 적용
 
-import styled from "@emotion/styled";
+import { useEffect, useRef } from "react";
+
 import { CardProps } from "../../Types/CardDataType";
 import Rare from "../../CSS/Rare";
-import { useEffect, useRef } from "react";
+import styled from "@emotion/styled";
 
 const CardContainer = styled("div")<{ inModal: boolean }>`
   display: flex;

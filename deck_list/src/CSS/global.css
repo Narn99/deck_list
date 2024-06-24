@@ -13,4 +13,5 @@ body {
   color: white;
   font-size: 2vw;
   text-shadow: 1px 0 5px rgba(60, 60, 60);
+  width: 100%;
 }

@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
+
 import CardList from "../../Components/Card/CardList";
 import { CardType } from "../../Types/CardDataType";
-import { totalDecks } from "../../Decks/Index";
 import styled from "@emotion/styled";
+import { totalDecks } from "../../Decks/Index";
 import { useEffect } from "react";
 
 interface DeckType {

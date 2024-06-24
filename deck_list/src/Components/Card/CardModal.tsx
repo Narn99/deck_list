@@ -1,9 +1,10 @@
 // 카드를 클릭 시, 확대해서 보여주는 모달
 
-import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+
 import Card from "./Card";
 import { CardType } from "../../Types/CardDataType";
-import { useEffect, useState } from "react";
+import styled from "@emotion/styled";
 
 const backface: CardType = {
   name: "뒷면",
