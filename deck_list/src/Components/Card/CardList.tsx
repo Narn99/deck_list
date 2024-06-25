@@ -27,8 +27,6 @@ const CardListContainer = styled("div")`
   width: 100%;
   height: 100%;
 
-  cursor: pointer;
-
   @media (max-width: 1200px) {
     grid-template-columns: repeat(8, 1fr);
   }
@@ -54,6 +52,8 @@ const CardBox = styled("div")`
   height: 100%;
 
   transition: transform 100ms linear;
+
+  cursor: pointer;
 
   :hover {
     transform: scale(1.2);

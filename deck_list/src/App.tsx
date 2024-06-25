@@ -14,8 +14,8 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/deck/:theme" element={<DeckPage />} />
         </Routes>
+        <SideBar />
       </Router>
-      <SideBar />
     </>
   );
 }
