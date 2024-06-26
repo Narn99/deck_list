@@ -5,7 +5,11 @@ export interface CardType {
   grade?: number;
   extra?: "fusion" | "synchro" | "xyz" | "link";
   rare?: "normal" | "rare" | "super" | "ultra" | "secret" | "cross";
+  quantity?: 1 | 2 | 3;
+}
 
+export interface DeckCardType {
+  name: string;
   quantity: 1 | 2 | 3;
 }
 

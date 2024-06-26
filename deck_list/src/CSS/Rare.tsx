@@ -390,9 +390,9 @@ const IconBox = styled("div")<{ icon: boolean; rotation: number }>`
 
   border-radius: 50%;
 `;
-const GradeBox = styled("div")`
+const GradeBox = styled("div")<{ extra: boolean }>`
   display: flex;
-  justify-content: flex-end;
+  justify-content: ${(props) => (props.extra ? "flex-start" : "flex-end")};
   align-items: center;
 
   width: 85%;
@@ -608,7 +608,7 @@ const Rare = ({
             <NameBox />
             {icon && <IconBox icon={icon} rotation={sumRotation} />}
           </NameContainer>
-          <GradeBox>
+          <GradeBox extra={extra ? true : false}>
             {grade &&
               extra !== "link" &&
               Array.from({ length: level }).map((_, index) => (

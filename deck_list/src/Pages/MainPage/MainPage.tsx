@@ -161,6 +161,7 @@ const MainPage = () => {
       <DeckListContainer>
         {totalDecks.map((deck) => (
           <DeckContainer
+            key={deck.eng}
             onMouseOver={() => setOnMouseDeck(deck)}
             onMouseLeave={() => setOnMouseDeck(null)}
             onClick={() => handleClickDeck(deck.eng)}

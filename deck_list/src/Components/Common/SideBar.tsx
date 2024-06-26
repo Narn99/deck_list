@@ -26,6 +26,11 @@ const Hamburger = styled("img")`
   object-fit: contain;
   cursor: pointer;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   @media (max-width: 1200px) {
     width: 7vw;
     height: 7vw;
@@ -46,6 +51,11 @@ const SideBarContainer = styled("div")`
   height: 100%;
 
   overflow-x: hidden;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const SideBarBox = styled("div")<{ isOpening: boolean }>`
@@ -243,7 +253,7 @@ const SubTabBox = styled("div")`
   :hover {
     transform: scale(1.03);
 
-    background-color: #c8eeff;
+    background-color: #ffe3c8;
   }
 
   @media (max-width: 1200px) {

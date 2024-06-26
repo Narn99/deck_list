@@ -1,15 +1,16 @@
+import { CardType, DeckCardType } from "../../Types/CardDataType";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CardList from "../../Components/Card/CardList";
-import { CardType } from "../../Types/CardDataType";
+import { cards } from "../../Decks/Cards";
 import styled from "@emotion/styled";
 import { totalDecks } from "../../Decks/Index";
-import { useEffect } from "react";
 
 interface DeckType {
   name: string;
   img_url: string;
-  deck: CardType[];
+  deck: DeckCardType[];
 }
 
 const PageContainer = styled("div")`
@@ -46,6 +47,11 @@ const BackButton = styled("div")`
   cursor: pointer;
 
   transition: transform 50ms linear;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   :hover {
     transform: scale(1.05);
@@ -94,7 +100,7 @@ const DeckName = styled("p")`
   }
 `;
 
-const ClassContainer = styled("div")<{ top?: boolean }>`
+const ClassContainer = styled("div")<{ top?: boolean; hide: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -108,6 +114,8 @@ const ClassContainer = styled("div")<{ top?: boolean }>`
   box-sizing: border-box;
 
   width: 100%;
+
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
 `;
 
 // 덱 오류시 빨간색 텍스트로 표시
@@ -148,7 +156,7 @@ const DeckErr = styled("p")<{ err?: boolean }>`
   }
 `;
 
-const CardListBox = styled("div")<{ bot?: boolean }>`
+const CardListBox = styled("div")<{ bot?: boolean; hide: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -161,6 +169,76 @@ const CardListBox = styled("div")<{ bot?: boolean }>`
   box-sizing: border-box;
 
   width: 100%;
+
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
+`;
+
+const HideButton = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+
+  border: 1px solid white;
+  border-radius: 10px;
+
+  background-color: white;
+
+  color: black;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  text-shadow: none;
+
+  padding: 1vw;
+
+  margin: 0 3vw 2vw 0;
+
+  box-sizing: border-box;
+
+  width: 10vw;
+  height: 3vw;
+
+  cursor: pointer;
+
+  transition: transform 50ms linear;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  :hover {
+    transform: scale(1.05);
+
+    background-color: #e2e2e2;
+  }
+
+  :not(:hover) {
+    transform: scale(1);
+  }
+
+  :active {
+    transform: scale(1.025);
+
+    color: white;
+    background-color: #858585;
+    border: none;
+    box-shadow: 0 0 5px #858585;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 2.5vw;
+
+    width: 20vw;
+    height: 6vw;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 4vw;
+
+    width: 30vw;
+    height: 8vw;
+  }
 `;
 
 const DeckPage = () => {
@@ -173,7 +251,7 @@ const DeckPage = () => {
 
   const bg = deckList?.img_url;
 
-  const DeckContainer = styled("div")`
+  const DeckContainer = styled("div")<{ hide: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,13 +265,18 @@ const DeckPage = () => {
 
     width: 95%;
 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     ::before {
       content: "";
       background-image: url(${bg});
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      opacity: 0.75;
+      opacity: ${(props) => (props.hide ? 1 : 0.75)};
 
       width: 90%;
       height: 90%;
@@ -211,6 +294,8 @@ const DeckPage = () => {
       z-index: -100;
     }
   `;
+
+  const [hideCards, setHideCards] = useState(false);
 
   const navigate = useNavigate();
 
@@ -278,7 +363,8 @@ const DeckPage = () => {
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
     // quantity 내림차순
-    (a: CardType, b: CardType) => b.quantity - a.quantity,
+    (a: CardType, b: CardType) =>
+      a.quantity && b.quantity ? b.quantity - a.quantity : 0,
 
     // rare 내림차순
     (a: CardType, b: CardType) =>
@@ -308,7 +394,8 @@ const DeckPage = () => {
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
     // quantity 내림차순
-    (a: CardType, b: CardType) => b.quantity - a.quantity,
+    (a: CardType, b: CardType) =>
+      a.quantity && b.quantity ? b.quantity - a.quantity : 0,
 
     // rare 내림차순
     (a: CardType, b: CardType) =>
@@ -329,7 +416,8 @@ const DeckPage = () => {
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
     // quantity 내림차순
-    (a: CardType, b: CardType) => b.quantity - a.quantity,
+    (a: CardType, b: CardType) =>
+      a.quantity && b.quantity ? b.quantity - a.quantity : 0,
 
     // rare 내림차순
     (a: CardType, b: CardType) =>
@@ -345,21 +433,51 @@ const DeckPage = () => {
   ];
 
   // 필터링된 카드 배열을 각각 정렬
-  const mainDeck = deckList?.deck
-    .filter((card) => !card.extra && card.type !== "token")
+  const mainDeck = cards
+    .reduce((cardList: CardType[], cardDB: CardType) => {
+      const one = deckList?.deck.find(
+        (card: DeckCardType) =>
+          cardDB.name === card.name && !cardDB.extra && cardDB.type !== "token"
+      );
+      if (one?.quantity !== undefined) {
+        cardList.push({ quantity: one.quantity, ...cardDB });
+      }
+      return cardList;
+    }, [])
     .sort((a, b) => (sortCards([a, b], mainDeckSortOrder)[0] === a ? -1 : 1));
 
-  const mainQ = mainDeck?.reduce((a, b) => a + b.quantity, 0);
+  const extraDeck = cards
+    .reduce((cardList: CardType[], cardDB: CardType) => {
+      const one = deckList?.deck.find(
+        (card: DeckCardType) =>
+          cardDB.name === card.name && cardDB.extra && cardDB.type !== "token"
+      );
+      if (one?.quantity !== undefined) {
+        cardList.push({ quantity: one.quantity, ...cardDB });
+      }
 
-  const extraDeck = deckList?.deck
-    .filter((card) => card.extra && card.type !== "token")
+      return cardList;
+    }, [])
     .sort((a, b) => (sortCards([a, b], extraDeckSortOrder)[0] === a ? -1 : 1));
 
-  const extraQ = extraDeck?.reduce((a, b) => a + b.quantity, 0);
+  const tokens = cards
+    .reduce((cardList: CardType[], cardDB: CardType) => {
+      const one = deckList?.deck.find(
+        (card: DeckCardType) =>
+          cardDB.name === card.name && cardDB.type === "token"
+      );
 
-  const tokens = deckList?.deck
-    .filter((card) => card.type === "token")
+      if (one?.quantity !== undefined) {
+        cardList.push({ quantity: one.quantity, ...cardDB });
+      }
+
+      return cardList;
+    }, [])
     .sort((a, b) => (sortCards([a, b], tokensSortOrder)[0] === a ? -1 : 1));
+
+  const mainQ = mainDeck?.reduce((a, b) => a + (b.quantity || 0), 0);
+
+  const extraQ = extraDeck?.reduce((a, b) => a + (b.quantity || 0), 0);
 
   return (
     <PageContainer>
@@ -367,8 +485,11 @@ const DeckPage = () => {
       {deckList ? (
         <>
           <DeckName>{deckList.name}</DeckName>
-          <DeckContainer>
-            <ClassContainer top>
+          <HideButton onClick={() => setHideCards(!hideCards)}>
+            {hideCards ? "카드 보이기" : "카드 숨기기"}
+          </HideButton>
+          <DeckContainer hide={hideCards}>
+            <ClassContainer top hide={hideCards}>
               <DeckClass err={!(mainQ && mainQ >= 40 && mainQ <= 60)}>
                 메인 덱 - {mainQ ? `${mainQ} 장` : `알 수 없음`}
               </DeckClass>
@@ -377,11 +498,11 @@ const DeckPage = () => {
               )}
             </ClassContainer>
             {mainDeck && (
-              <CardListBox>
+              <CardListBox hide={hideCards}>
                 <CardList deckCards={mainDeck} />
               </CardListBox>
             )}
-            <ClassContainer>
+            <ClassContainer hide={hideCards}>
               <DeckClass err={!(extraQ && extraQ <= 15)}>
                 엑스트라 덱 - {extraQ ? `${extraQ} 장` : `알 수 없음`}
               </DeckClass>
@@ -390,16 +511,16 @@ const DeckPage = () => {
               )}
             </ClassContainer>
             {extraDeck && (
-              <CardListBox>
+              <CardListBox hide={hideCards}>
                 <CardList deckCards={extraDeck} />
               </CardListBox>
             )}
-            {tokens && (
+            {tokens && tokens.length > 0 && (
               <>
-                <ClassContainer>
+                <ClassContainer hide={hideCards}>
                   <DeckClass>토큰</DeckClass>
                 </ClassContainer>
-                <CardListBox bot>
+                <CardListBox bot hide={hideCards}>
                   <CardList deckCards={tokens} />
                 </CardListBox>
               </>

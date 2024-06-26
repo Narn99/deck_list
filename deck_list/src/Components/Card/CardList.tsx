@@ -105,9 +105,12 @@ const CardNameBox = styled("div")`
 `;
 
 const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
-  const deckList = deckCards.flatMap((card) =>
-    Array.from({ length: card.quantity }, () => card)
-  );
+  const deckList: CardType[] = deckCards.flatMap((card) => {
+    if (typeof card.quantity !== "number" || card.quantity <= 0) {
+      return []; // Skip if quantity is not a valid number or is less than or equal to 0
+    }
+    return Array.from({ length: card.quantity }, () => card);
+  });
 
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
   const [onHover, setOnHover] = useState<string>("");
