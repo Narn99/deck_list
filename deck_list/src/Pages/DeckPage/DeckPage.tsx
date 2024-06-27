@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CardList from "../../Components/Card/CardList";
-import { cards } from "../../Decks/Cards";
+import { cards } from "../../Cards/CardList";
 import styled from "@emotion/styled";
-import { totalDecks } from "../../Decks/Index";
+import { totalDecks } from "../../Cards/Index";
+
+// Types
 
 interface DeckType {
   name: string;
   img_url: string;
   deck: DeckCardType[];
 }
+
+// Styled
 
 const PageContainer = styled("div")`
   display: flex;
@@ -27,176 +31,20 @@ const BackButton = styled("div")`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid white;
-  border-radius: 10px;
-
-  background-color: white;
-
-  color: black;
-  font-size: 1.5vw;
-  font-weight: bolder;
-  text-shadow: none;
-
-  padding: 1vw;
-
-  box-sizing: border-box;
-
   width: 10vw;
   height: 3vw;
-
-  cursor: pointer;
-
-  transition: transform 50ms linear;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  :hover {
-    transform: scale(1.05);
-
-    background-color: #e2e2e2;
-  }
-
-  :not(:hover) {
-    transform: scale(1);
-  }
-
-  @media (max-width: 1200px) {
-    font-size: 2.5vw;
-
-    width: 20vw;
-    height: 6vw;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 4vw;
-
-    width: 30vw;
-    height: 8vw;
-  }
-`;
-
-const DeckName = styled("p")`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  font-size: 4vw;
-  font-weight: bold;
-
-  border-top: 2px dotted skyblue;
-  border-bottom: 2px dotted skyblue;
-  text-shadow: 0 0 30px chartreuse;
-
-  padding: 1.5vh 0 1.5vh 0;
-
-  @media (max-width: 1200px) {
-    font-size: 6vw;
-  }
-  @media (max-width: 768px) {
-    font-size: 8vw;
-  }
-`;
-
-const ClassContainer = styled("div")<{ top?: boolean; hide: boolean }>`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  border: 1px solid white;
-  border-radius: ${(props) => props.top && "10px 10px 0 0"};
-
-  padding-left: 2vw;
-  margin: 0;
-
-  box-sizing: border-box;
-
-  width: 100%;
-
-  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
-`;
-
-// 덱 오류시 빨간색 텍스트로 표시
-const DeckClass = styled("p")<{ err?: boolean }>`
-  color: ${(props) => (props.err ? "red" : "white")};
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  font-size: 1.5vw;
-  font-weight: bold;
-  text-shadow: ${(props) =>
-    props.err
-      ? `-1px 0 1px lightgray, 1px 0 1px lightgray, 0 1px 1px lightgray, 0 -1px 1px lightgray`
-      : `-1px 0 4px red, 1px 0 4px red, 0 1px 4px red, 0 -1px 4px red`};
-  @media (max-width: 1200px) {
-    font-size: 2.5vw;
-  }
-  @media (max-width: 768px) {
-    font-size: 4vw;
-  }
-`;
-
-const DeckErr = styled("p")<{ err?: boolean }>`
-  color: ${(props) => (props.err ? "red" : "white")};
-
-  font-size: 1vw;
-  text-shadow: -1px 0 2px red, 1px 0 2px red, 0 1px 2px red, 0 -1px 2px red;
-
-  margin-left: 1rem;
-
-  @media (max-width: 1200px) {
-    font-size: 2vw;
-  }
-  @media (max-width: 768px) {
-    font-size: 3vw;
-  }
-`;
-
-const CardListBox = styled("div")<{ bot?: boolean; hide: boolean }>`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  border: 1px solid white;
-  border-radius: ${(props) => props.bot && "0 0 10px 10px"};
-
-  padding: 1.5vw;
-
-  box-sizing: border-box;
-
-  width: 100%;
-
-  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
-`;
-
-const HideButton = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: flex-end;
 
   border: 1px solid white;
   border-radius: 10px;
 
+  padding: 1vw;
+  box-sizing: border-box;
   background-color: white;
 
-  color: black;
   font-size: 1.5vw;
   font-weight: bolder;
   text-shadow: none;
-
-  padding: 1vw;
-
-  margin: 0 3vw 2vw 0;
-
-  box-sizing: border-box;
-
-  width: 10vw;
-  height: 3vw;
+  color: black;
 
   cursor: pointer;
 
@@ -220,9 +68,9 @@ const HideButton = styled("div")`
   :active {
     transform: scale(1.025);
 
+    border: none;
     color: white;
     background-color: #858585;
-    border: none;
     box-shadow: 0 0 5px #858585;
   }
 
@@ -241,29 +89,191 @@ const HideButton = styled("div")`
   }
 `;
 
+const DeckName = styled("p")`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  border-top: 2px dotted skyblue;
+  border-bottom: 2px dotted skyblue;
+
+  padding: 1.5vh 0 1.5vh 0;
+
+  font-size: 4vw;
+  font-weight: bold;
+  text-shadow: 0 0 30px chartreuse;
+
+  @media (max-width: 1200px) {
+    font-size: 6vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 8vw;
+  }
+`;
+
+const ClassContainer = styled("div")<{ top?: boolean; hide: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+
+  border: 1px solid white;
+  border-radius: ${(props) => props.top && "10px 10px 0 0"};
+
+  padding-left: 2vw;
+  margin: 0;
+  box-sizing: border-box;
+
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
+`;
+
+// 덱 오류시 빨간색 텍스트로 표시
+const DeckClass = styled("p")<{ err?: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-shadow: ${(props) =>
+    props.err
+      ? `-1px 0 1px lightgray, 1px 0 1px lightgray, 0 1px 1px lightgray, 0 -1px 1px lightgray`
+      : `-1px 0 4px red, 1px 0 4px red, 0 1px 4px red, 0 -1px 4px red`};
+  color: ${(props) => (props.err ? "red" : "white")};
+
+  @media (max-width: 1200px) {
+    font-size: 2.5vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 4vw;
+  }
+`;
+
+const DeckErr = styled("p")<{ err?: boolean }>`
+  margin-left: 1rem;
+
+  font-size: 1vw;
+  text-shadow: -1px 0 2px red, 1px 0 2px red, 0 1px 2px red, 0 -1px 2px red;
+  color: ${(props) => (props.err ? "red" : "white")};
+
+  @media (max-width: 1200px) {
+    font-size: 2vw;
+  }
+  @media (max-width: 768px) {
+    font-size: 3vw;
+  }
+`;
+
+const CardListBox = styled("div")<{ bot?: boolean; hide: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+
+  border: 1px solid white;
+  border-radius: ${(props) => props.bot && "0 0 10px 10px"};
+
+  padding: 1.5vw;
+  box-sizing: border-box;
+
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
+`;
+
+const HideButton = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+
+  width: 10vw;
+  height: 3vw;
+
+  border: 1px solid white;
+  border-radius: 10px;
+
+  padding: 1vw;
+  margin: 0 3vw 2vw 0;
+  box-sizing: border-box;
+  background-color: white;
+
+  font-size: 1.5vw;
+  font-weight: bolder;
+  text-shadow: none;
+  color: black;
+
+  cursor: pointer;
+
+  transition: transform 50ms linear;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  :hover {
+    transform: scale(1.05);
+
+    background-color: #e2e2e2;
+  }
+
+  :not(:hover) {
+    transform: scale(1);
+  }
+
+  :active {
+    transform: scale(1.025);
+
+    border: none;
+    color: white;
+    background-color: #858585;
+    box-shadow: 0 0 5px #858585;
+  }
+
+  @media (max-width: 1200px) {
+    width: 20vw;
+    height: 6vw;
+
+    font-size: 2.5vw;
+  }
+
+  @media (max-width: 768px) {
+    width: 30vw;
+    height: 8vw;
+
+    font-size: 4vw;
+  }
+`;
+
+// Component
+
 const DeckPage = () => {
-  const { theme } = useParams(); // useParams를 사용하여 URL 파라미터를 객체 형태로 가져옴
+  // useParams로 params의 현재 덱 이름을 가져옴
+  const { theme } = useParams();
 
   // theme 값을 기준으로 totalDecks에서 일치하는 deck을 찾음
   const deckList: DeckType | undefined = totalDecks.find(
     (deck) => theme === deck.eng
   );
 
+  // 덱 배경 이미지
   const bg = deckList?.img_url;
 
+  // url값에 bg를 사용하기 위해 컴포넌트 내부로 이동한 Styled... 통일성을 해친다.
   const DeckContainer = styled("div")<{ hide: boolean }>`
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    position: relative;
+    width: 95%;
 
     border-radius: 10px;
 
     box-shadow: 1px 0 20px white;
-
-    width: 95%;
 
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -272,58 +282,60 @@ const DeckPage = () => {
 
     ::before {
       content: "";
+      position: absolute;
+
+      justify-self: center;
+      align-self: center;
+
+      width: 90%;
+      height: 90%;
+
+      border-radius: 50%;
+      border: 5px solid white;
+
+      box-shadow: 1px 0 10px white;
       background-image: url(${bg});
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       opacity: ${(props) => (props.hide ? 1 : 0.75)};
 
-      width: 90%;
-      height: 90%;
-
-      position: absolute;
-
-      justify-self: center;
-      align-self: center;
-
-      border-radius: 50%;
-      border: 5px solid white;
-
-      box-shadow: 1px 0 10px white;
-
       z-index: -100;
     }
   `;
 
+  // 카드 숨기고 배경을 보여주는 버튼용 usestate
   const [hideCards, setHideCards] = useState(false);
 
   const navigate = useNavigate();
 
+  // 이전 페이지로
   const goToPrev = () => {
     navigate(-1);
   };
 
+  // 홈 페이지로
   const goToMain = () => {
     navigate(`/`);
   };
 
+  // params에 맞는 theme가 없을 시 이전 페이지로 돌아가기
   useEffect(() => {
     if (!deckList) {
-      // 에러 모달 띄워주고
       setTimeout(() => {
         goToPrev();
       }, 3000);
     }
   });
 
-  // 타입 순서를 결정하는 객체
+  // 몬스터, 마법, 함정 순으로 정렬
   const typeOrder: { [key in "monster" | "magic" | "trap"]: number } = {
     monster: 1,
     magic: 2,
     trap: 3,
   };
 
-  // 레어도 순서를 결정하는 객체
+  // 레어도가 높은 순으로 정렬
   const rareOrder: {
     [key in "cross" | "secret" | "ultra" | "super" | "rare" | "normal"]: number;
   } = {
@@ -335,7 +347,7 @@ const DeckPage = () => {
     normal: 1,
   };
 
-  // 카드 배열을 정렬하는 함수
+  // 카드 리스트 정렬 함수
   const sortCards = (
     cards: CardType[],
     sortOrder: ((a: CardType, b: CardType) => number)[]
@@ -352,21 +364,21 @@ const DeckPage = () => {
     });
   };
 
-  // 메인 덱 정렬 함수들
+  // 메인 덱 정렬 함수 (위부터 순서대로)
   const mainDeckSortOrder = [
-    // 카드 타입 순서: monster > magic > trap
+    // 몬스터, 마법, 함정 순 정렬
     (a: CardType, b: CardType) =>
       typeOrder[a.type as "monster" | "magic" | "trap"] -
       typeOrder[b.type as "monster" | "magic" | "trap"],
 
-    // grade 오름차순
+    // 레벨 오름차순 정렬
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
-    // quantity 내림차순
+    // 카드 장수 내림차순 정렬
     (a: CardType, b: CardType) =>
       a.quantity && b.quantity ? b.quantity - a.quantity : 0,
 
-    // rare 내림차순
+    // 레어도 내림차순 정렬
     (a: CardType, b: CardType) =>
       rareOrder[
         b.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
@@ -375,13 +387,13 @@ const DeckPage = () => {
         a.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
       ],
 
-    // 한글 이름 빠른 순서
+    // 한글 이름 빠른 순서 정렬
     (a: CardType, b: CardType) => a.name.localeCompare(b.name, "ko-KR"),
   ];
 
-  // 엑스트라 덱 정렬 함수들
+  // 엑스트라 덱 정렬 함수 (위부터 순서대로)
   const extraDeckSortOrder = [
-    // 엑스트라 타입 순서: fusion > synchro > xyz > link
+    // 엑스트라 속성을 융합 > 싱크로 > 엑시즈 > 링크 순서대로 정렬
     (a: CardType, b: CardType) => {
       const extraOrder = { fusion: 1, synchro: 2, xyz: 3, link: 4 };
       return (
@@ -390,14 +402,14 @@ const DeckPage = () => {
       );
     },
 
-    // grade 오름차순
+    // 레벨이나 링크 마커같은 grade 오름차순 정렬 (엑스트라 덱 외엔 레벨)
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
-    // quantity 내림차순
+    // 카드 장수 내림차순 정렬
     (a: CardType, b: CardType) =>
       a.quantity && b.quantity ? b.quantity - a.quantity : 0,
 
-    // rare 내림차순
+    // 레어도 내림차순 정렬
     (a: CardType, b: CardType) =>
       rareOrder[
         b.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
@@ -406,20 +418,16 @@ const DeckPage = () => {
         a.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
       ],
 
-    // 한글 이름 빠른 순서
+    // 한글 이름 빠른 순서 정렬
     (a: CardType, b: CardType) => a.name.localeCompare(b.name, "ko-KR"),
   ];
 
-  // 토큰 정렬 함수들
+  // 토큰 정렬 함수 (위부터 순서대로)
   const tokensSortOrder = [
-    // grade 오름차순
+    // 레벨 오름차순 정렬
     (a: CardType, b: CardType) => (a.grade && b.grade ? a.grade - b.grade : 0),
 
-    // quantity 내림차순
-    (a: CardType, b: CardType) =>
-      a.quantity && b.quantity ? b.quantity - a.quantity : 0,
-
-    // rare 내림차순
+    // 레어도 내림차순 정렬
     (a: CardType, b: CardType) =>
       rareOrder[
         b.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
@@ -428,11 +436,11 @@ const DeckPage = () => {
         a.rare as "cross" | "secret" | "ultra" | "super" | "rare" | "normal"
       ],
 
-    // 한글 이름 빠른 순서
+    // 한글 이름 빠른 순서 정렬
     (a: CardType, b: CardType) => a.name.localeCompare(b.name, "ko-KR"),
   ];
 
-  // 필터링된 카드 배열을 각각 정렬
+  // 메인 덱 정렬한 리스트
   const mainDeck = cards
     .reduce((cardList: CardType[], cardDB: CardType) => {
       const one = deckList?.deck.find(
@@ -446,6 +454,7 @@ const DeckPage = () => {
     }, [])
     .sort((a, b) => (sortCards([a, b], mainDeckSortOrder)[0] === a ? -1 : 1));
 
+  // 엑스트라 덱 정렬한 리스트
   const extraDeck = cards
     .reduce((cardList: CardType[], cardDB: CardType) => {
       const one = deckList?.deck.find(
@@ -460,6 +469,7 @@ const DeckPage = () => {
     }, [])
     .sort((a, b) => (sortCards([a, b], extraDeckSortOrder)[0] === a ? -1 : 1));
 
+  // 토큰 정렬한 리스트
   const tokens = cards
     .reduce((cardList: CardType[], cardDB: CardType) => {
       const one = deckList?.deck.find(
@@ -475,8 +485,10 @@ const DeckPage = () => {
     }, [])
     .sort((a, b) => (sortCards([a, b], tokensSortOrder)[0] === a ? -1 : 1));
 
+  // 메인 덱 총 장수
   const mainQ = mainDeck?.reduce((a, b) => a + (b.quantity || 0), 0);
 
+  // 엑스트라 덱 덱 총 장수
   const extraQ = extraDeck?.reduce((a, b) => a + (b.quantity || 0), 0);
 
   return (
@@ -528,7 +540,7 @@ const DeckPage = () => {
           </DeckContainer>
         </>
       ) : (
-        <h2>No deck found for the theme "{theme}"</h2>
+        <h2>"{theme}" 테마가 존재하지 않습니다.</h2>
       )}
     </PageContainer>
   );

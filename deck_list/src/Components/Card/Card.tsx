@@ -6,10 +6,12 @@ import { CardProps } from "../../Types/CardDataType";
 import Rare from "../../CSS/Rare";
 import styled from "@emotion/styled";
 
+// Styled
+
 const CardContainer = styled("div")<{ inModal: boolean }>`
-  display: flex;
   position: relative;
 
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -17,7 +19,6 @@ const CardContainer = styled("div")<{ inModal: boolean }>`
   height: 100%;
 
   box-shadow: 5px 5px 10px black;
-
   opacity: ${(props) => (props.inModal ? 1 : 0.85)};
 `;
 
@@ -27,6 +28,8 @@ const CardImageBox = styled("img")`
 
   z-index: 1;
 `;
+
+// Component
 
 const Card = ({
   cardData,
@@ -48,13 +51,12 @@ const Card = ({
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // 컴포넌트가 마운트된 후, 카드의 너비 측정
+    // 컴포넌트 마운트 시, 카드 크기 측정하고 저장
     if (setCardScale && cardRef.current) {
       const cardWidth = cardRef.current.offsetWidth;
       const cardHeight = cardRef.current.offsetHeight;
 
       setCardScale({ width: cardWidth, height: cardHeight });
-      // 여기서 다른 로직에 사용하거나 상태로 저장할 수 있음
     }
   }, [setCardScale]);
 

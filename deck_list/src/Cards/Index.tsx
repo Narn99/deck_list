@@ -1,6 +1,8 @@
 import { Sky_Striker } from "./DeckList/Sky_Striker";
 import { Traptrix } from "./DeckList/Traptrix";
 
+// 덱 리스트 모음
+
 export const totalDecks = [
   {
     name: "섬도희 덱",

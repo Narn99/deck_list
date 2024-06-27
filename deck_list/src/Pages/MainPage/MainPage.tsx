@@ -1,11 +1,13 @@
 // 메인 페이지 - 목록에서 덱 선택해서 들어가기
-// 여러 덱을 리스트로 보여줌
+// 여러 덱을 그리드 형식 리스트로 보여줌
 
 import styled from "@emotion/styled";
 import { totalDeckType } from "../../Types/CardDataType";
-import { totalDecks } from "../../Decks/Index";
+import { totalDecks } from "../../Cards/Index";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+// Styled
 
 const MainPageContainer = styled("div")`
   display: flex;
@@ -25,14 +27,14 @@ const PageTitle = styled("p")`
   justify-content: center;
   align-items: center;
 
-  font-size: 4vw;
-  font-weight: bold;
-
   border-top: 2px dotted skyblue;
   border-bottom: 2px dotted skyblue;
-  text-shadow: 0 0 30px chartreuse;
 
   padding: 1.5vh 0 1.5vh 0;
+
+  font-size: 4vw;
+  font-weight: bold;
+  text-shadow: 0 0 30px chartreuse;
 
   @media (max-width: 1200px) {
     font-size: 6vw;
@@ -46,14 +48,13 @@ const DeckListContainer = styled("div")`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5vw;
-
   justify-content: center;
   align-items: center;
 
+  width: 90%;
+
   border-radius: 20px;
   box-shadow: 0 0 20px white;
-
-  width: 90%;
 
   padding: 1.5vw;
 
@@ -88,11 +89,11 @@ const DeckContainer = styled("div")`
   box-shadow: 1px 0 4px white, -1px 0 4px white, 0 1px 4px white,
     0 -1px 4px white;
 
+  box-sizing: border-box;
+
   cursor: pointer;
 
   overflow: hidden;
-
-  box-sizing: border-box;
   aspect-ratio: 1;
 
   transition: transform 100ms linear;
@@ -121,21 +122,19 @@ const DeckName = styled("div")`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
 
-  font-size: 2.1vw;
-  font-weight: bold;
-  color: white;
-
-  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
-    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
-  text-align: center;
-
   background-color: rgba(0, 0, 0, 0.4);
 
-  width: 100%;
-  height: 100%;
+  font-size: 2.1vw;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
+    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
+  color: white;
 
   @media (max-width: 1200px) {
     font-size: 3.2vw;
@@ -146,11 +145,15 @@ const DeckName = styled("div")`
   }
 `;
 
+// Component
+
 const MainPage = () => {
+  // 마우스가 올라간 덱 호버 css용 usestate
   const [onMouseDeck, setOnMouseDeck] = useState<totalDeckType | null>(null);
 
   const navigate = useNavigate();
 
+  // 클릭한 덱 페이지로 이동하는 함수
   const handleClickDeck = (link: string) => {
     navigate(`deck/${link}`);
   };

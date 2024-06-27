@@ -1,13 +1,9 @@
-/* 
- 시크릿, 울레, 슈레, 레어, 테두리까지인 시크릿 반짝반짝
- 근데 이름 칸은 반짝이게 하기가 힘들잖아...
-
- 레어도별 컴포넌트를 만들어서 export 하자
-
- 모달 */
-
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
+// 레어도에 따른 카드 css 효과 적용 (카드 위에 겹쳐서 덮어씌우기)
+
+// Styled
 
 const OuterContainer = styled("div")`
   position: absolute;
@@ -17,10 +13,10 @@ const OuterContainer = styled("div")`
   justify-content: center;
   align-items: center;
 
-  opacity: 0.5;
-
   width: 100%;
   height: 100%;
+
+  opacity: 0.5;
 
   z-index: 1000;
 `;
@@ -33,6 +29,7 @@ const EntireCard = styled("div")<{
 }>`
   position: absolute;
 
+  // cross 레어도에 적용할 십자가 광택
   ${(props) =>
     props.rare === "cross" &&
     css`
@@ -106,12 +103,15 @@ const EntireCard = styled("div")<{
 
       background-size: 150% 150%, 150% 150%, 150% 150%, 150% 150%, 150% 150%,
         150% 150%, 150% 150%, 150% 150%, 150% 150%, 150% 150%;
+
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotationY - 75}%, ${props.rotationY}%,
         ${props.rotationY + 75}%, ${props.rotationY + 150}%,
         0 ${props.rotationX - 75}%, 0 ${props.rotationX}%,
         0 ${props.rotationX + 75}%, 0 ${props.rotationX + 150}%;
     `}
 
+  // rare 레어도에 적용할 전체 광택
   ${(props) =>
     props.rare === "rare" &&
     css`
@@ -161,13 +161,14 @@ const EntireCard = styled("div")<{
 
       background-size: 130% 200%, 130% 200%, 130% 200%, 130% 200%, 130% 200%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotation - 200}%, ${props.rotation - 100}%,
         ${props.rotation + 0}%, ${props.rotation + 100}%,
         ${props.rotation + 200}%;
     `}
 
-
-    ${(props) =>
+  // 나머지 레어도에 적용할 광택
+  ${(props) =>
     props.rare !== "rare" &&
     props.rare !== "cross" &&
     css`
@@ -197,6 +198,7 @@ const EntireCard = styled("div")<{
 
       background-size: 120% 200%, 120% 200%, 120% 200%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotation - 220}%, ${props.rotation + 0}%,
         ${props.rotation + 220}%;
     `}
@@ -217,6 +219,7 @@ const XBorder = styled("div")<{
   border: boolean;
   rotationY: number;
 }>`
+  // 가로 테두리 광택
   ${(props) =>
     props.border &&
     css`
@@ -258,6 +261,7 @@ const XBorder = styled("div")<{
 
       background-size: 40% 5%, 40% 5%, 40% 5%, 40% 5%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotationY - 75}%, ${props.rotationY - 25}%,
         ${props.rotationY + 25}%, ${props.rotationY + 75}%;
     `}
@@ -279,6 +283,7 @@ const YBorder = styled("div")<{
   border: boolean;
   rotationX: number;
 }>`
+  // 세로 테두리 광택
   ${(props) =>
     props.border &&
     css`
@@ -320,6 +325,7 @@ const YBorder = styled("div")<{
 
       background-size: 5% 40%, 5% 40%, 5% 40%, 5% 40%;
 
+      // 마우스 위치에 따라 이동
       background-position: 0 ${props.rotationX - 75}%,
         0 ${props.rotationX - 25}%, 0 ${props.rotationX + 25}%,
         0 ${props.rotationX + 75}%;
@@ -360,6 +366,7 @@ const IconBox = styled("div")<{ icon: boolean; rotation: number }>`
   margin-right: 2%;
   margin-top: 1%;
 
+  // 속성, 아이콘 칸 광택
   ${(props) =>
     props.icon &&
     css`
@@ -385,6 +392,7 @@ const IconBox = styled("div")<{ icon: boolean; rotation: number }>`
 
       background-size: 400% 400%, 400% 400%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotation - 50}%, ${props.rotation + 50}%;
     `}
 
@@ -392,13 +400,14 @@ const IconBox = styled("div")<{ icon: boolean; rotation: number }>`
 `;
 const GradeBox = styled("div")<{ extra: boolean }>`
   display: flex;
+  // 엑스트라 몬스터는 grade가 왼쪽, 일반 몬스터는 오른쪽
   justify-content: ${(props) => (props.extra ? "flex-start" : "flex-end")};
   align-items: center;
 
   width: 85%;
   height: 5%;
 
-  padding-top: 1%;
+  padding-top: 1.5%;
   padding-bottom: 1%;
 `;
 const LevelBox = styled("div")<{ grade: boolean; rotation: number }>`
@@ -406,6 +415,7 @@ const LevelBox = styled("div")<{ grade: boolean; rotation: number }>`
 
   border-radius: 50%;
 
+  // 레벨 칸 광택
   ${(props) =>
     props.grade &&
     css`
@@ -431,6 +441,7 @@ const LevelBox = styled("div")<{ grade: boolean; rotation: number }>`
 
       background-size: 300% 300%, 300% 300%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotation - 50}%, ${props.rotation + 50}%;
     `}
 
@@ -449,6 +460,7 @@ const CardImage = styled("div")<{
   image: 1 | 2 | 3;
   rotation: number;
 }>`
+  // 카드 이미지 높은 레어도 광택
   ${(props) =>
     props.image === 2 &&
     css`
@@ -490,10 +502,12 @@ const CardImage = styled("div")<{
 
       background-size: 5% 40%, 5% 40%, 5% 40%, 5% 40%;
 
+      // 마우스 위치에 따라 이동
       background-position: 0 ${props.rotation - 75}%, 0 ${props.rotation - 25}%,
         0 ${props.rotation + 25}%, 0 ${props.rotation + 75}%;
     `}
 
+  // 슈퍼레어, 울트라레어에서의 이미지 광택
   ${(props) =>
     props.image === 1 &&
     css`
@@ -535,6 +549,7 @@ const CardImage = styled("div")<{
 
       background-size: 150% 150%, 150% 150%, 150% 150%, 150% 150%;
 
+      // 마우스 위치에 따라 이동
       background-position: ${props.rotation - 75}%, ${props.rotation}%,
         ${props.rotation + 75}%, ${props.rotation + 150}%;
     `}
@@ -563,6 +578,8 @@ const MainText = styled("div")`
   border-radius: 0.5vw;
 `;
 
+// Component
+
 const Rare = ({
   rare,
   type,
@@ -590,6 +607,7 @@ const Rare = ({
       ? 2
       : 3;
 
+  // 마우스 위치 값의 합
   const sumRotation = rotationX + rotationY;
 
   return (

@@ -1,3 +1,5 @@
+// 공용으로 쓸 카드 관련 Types
+
 export interface CardType {
   name: string;
   img_url: string;

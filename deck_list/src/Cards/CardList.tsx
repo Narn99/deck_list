@@ -1,5 +1,8 @@
 import { CardType } from "../Types/CardDataType";
 
+// 전체 카드 목록 (일종의 db)
+// 새 카드를 추가하면 public에 이미지를 넣어주고, 여기에 카드 추가할 것
+
 export const cards: CardType[] = [
   {
     name: "섬도희 - 레이",

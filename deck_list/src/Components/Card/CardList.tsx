@@ -11,21 +11,26 @@ import { CardType } from "../../Types/CardDataType";
 import styled from "@emotion/styled";
 import { useState } from "react";
 
+// Styled
+
 const CardListContainer = styled("div")`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-
   gap: 0.5vw;
-
-  background-color: rgba(255, 255, 255, 0.2);
-
-  border-radius: 10px;
-  box-shadow: 0 0 10px white;
-
-  padding: 10px;
 
   width: 100%;
   height: 100%;
+
+  border-radius: 10px;
+
+  padding: 10px;
+  box-shadow: 0 0 10px white;
+  background-color: rgba(255, 255, 255, 0.2);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(8, 1fr);
@@ -34,11 +39,6 @@ const CardListContainer = styled("div")`
   @media (max-width: 768px) {
     grid-template-columns: repeat(5, 1fr);
   }
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const CardBox = styled("div")`
@@ -51,9 +51,9 @@ const CardBox = styled("div")`
   width: 100%;
   height: 100%;
 
-  transition: transform 100ms linear;
-
   cursor: pointer;
+
+  transition: transform 100ms linear;
 
   :hover {
     transform: scale(1.2);
@@ -69,31 +69,27 @@ const CardNameBox = styled("div")`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
 
-  font-size: 1.1vw;
-  font-weight: bold;
-  color: white;
-
-  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
-    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
-  text-align: center;
-
+  padding: 0 1vw 0 1vw;
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.3);
   box-shadow: 1px 0 10px rgba(170, 230, 255), -1px 0 10px rgba(170, 230, 255),
     0 1px 10px rgba(170, 230, 255), 0 -1px 10px rgba(170, 230, 255);
 
-  width: 100%;
-  height: 100%;
-
-  padding: 0 1vw 0 1vw;
-
-  z-index: 200;
+  font-size: 1.1vw;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: -1px 0 4px rgba(0, 0, 0), 1px 0 4px rgba(0, 0, 0),
+    0 1px 4px rgba(0, 0, 0), 0 -1px 4px rgba(0, 0, 0);
+  color: white;
 
   white-space: pre-line;
 
-  box-sizing: border-box;
+  z-index: 200;
 
   @media (max-width: 1200px) {
     font-size: 2.2vw;
@@ -104,14 +100,18 @@ const CardNameBox = styled("div")`
   }
 `;
 
+// Component
+
 const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
+  // quantity에 맞춰 덱리스트에 카드를 추가한 배열 (quantity가 3이면 3장 넣는 것)
   const deckList: CardType[] = deckCards.flatMap((card) => {
     if (typeof card.quantity !== "number" || card.quantity <= 0) {
-      return []; // Skip if quantity is not a valid number or is less than or equal to 0
+      return [];
     }
     return Array.from({ length: card.quantity }, () => card);
   });
 
+  // usestate
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
   const [onHover, setOnHover] = useState<string>("");
   const [cardPosition, setCardPosition] = useState<{
@@ -120,6 +120,7 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
   } | null>(null);
   const [cardScale, setCardScale] = useState({ width: 0, height: 0 });
 
+  // 카드 리스트에서 카드 하나를 클릭했을 때, 그 카드를 선택하고 위치값을 얻는 함수
   const handleCardImage = (
     card: CardType,
     e: React.MouseEvent<HTMLDivElement>
@@ -132,11 +133,13 @@ const CardList = ({ deckCards }: { deckCards: CardType[] }) => {
     setSelectedCard(card);
   };
 
+  // 모달창 종료하는 함수
   const handleModal = () => {
     setSelectedCard(null);
     setCardPosition(null);
   };
 
+  // 카드 이름 표시할 때, 띄어쓰기를 줄바꿈으로 바꾸어 표시
   const spaceToEnter = (text: string) => {
     return text.replace(/ /g, "\n");
   };

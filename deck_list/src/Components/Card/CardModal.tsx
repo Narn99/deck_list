@@ -6,12 +6,16 @@ import Card from "./Card";
 import { CardType } from "../../Types/CardDataType";
 import styled from "@emotion/styled";
 
+// 카드 회전하는 애니메이션용 뒷면 이미지
+
 const backface: CardType = {
   name: "뒷면",
   img_url: "/Images/Common/Back/뒷면.webp",
   type: "monster",
   quantity: 1,
 };
+
+// Styled
 
 const ModalContainer = styled("div")<{
   rotationX: number;
@@ -28,16 +32,16 @@ const ModalContainer = styled("div")<{
   align-items: center;
 
   width: 25vw;
-
   top: 50%;
   left: 50%;
+
   transform: perspective(80rem) translate(-50%, -50%)
     rotateX(${(props) => props.rotationX}deg)
     rotateY(${(props) => props.rotationY}deg);
 
-  z-index: 5000;
-
   backface-visibility: hidden;
+
+  z-index: 5000;
 
   animation: ${(props) =>
     !props.isClosing
@@ -102,9 +106,9 @@ const CardBackBox = styled("div")<{
   top: 50%;
   left: 50%;
 
-  z-index: 4500;
-
   transform: translate(-50%, -50%);
+
+  z-index: 4500;
 
   animation: ${(props) =>
     !props.isClosing
@@ -156,17 +160,19 @@ const CardBackBox = styled("div")<{
 
 const ModalBackground = styled("div")`
   position: fixed;
-  top: 0;
-  left: 0;
-
-  background-color: black;
-  opacity: 0.8;
 
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
+
+  opacity: 0.8;
+  background-color: black;
 
   z-index: 4000;
 `;
+
+// Component
 
 const CardModal = ({
   cardData,
@@ -179,12 +185,13 @@ const CardModal = ({
   cardWidth: number;
   onClose: () => void;
 }) => {
+  // usestate
   const [rotationX, setRotationX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
   const [isLeaving, setIsLeaving] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  // 마우스가 모달을 떠날 때 회전 애니메이션이 완만하게 멈추도록 처리
+  // 마우스가 모달에서 나갈 시, 천천히 원상태로 복귀
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -194,7 +201,7 @@ const CardModal = ({
         setRotationX((prevX) => prevX * 0.9);
         setRotationY((prevY) => prevY * 0.9);
 
-        // 회전 각도가 충분히 작아지면 clearInterval 호출
+        // 회전 각도가 충분히 작아지면 clearInterval 호출하여 처음 상태로 만들고 중지
         if (Math.abs(rotationX) < 1 && Math.abs(rotationY) < 1) {
           clearInterval(intervalId);
           setRotationX(0);
@@ -209,7 +216,9 @@ const CardModal = ({
     };
   }, [isLeaving, rotationX, rotationY]);
 
+  // 마우스 이동 좌표 감지 함수
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    // 카드 원상태로 복귀 중에 마우스가 다시 들어오면 복귀하던 것 중지
     if (isLeaving) {
       setIsLeaving(false);
     }
@@ -223,10 +232,7 @@ const CardModal = ({
     setRotationY((x / width) * -50);
   };
 
-  const handleMouseLeave = () => {
-    setIsLeaving(true);
-  };
-
+  // 모달 종료 함수
   const handleOnClose = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -244,7 +250,7 @@ const CardModal = ({
         cardWidth={cardWidth}
         isClosing={isClosing}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={() => setIsLeaving(true)}
       >
         <Card
           cardData={cardData}

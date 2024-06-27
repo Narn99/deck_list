@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
 
 import styled from "@emotion/styled";
-import { totalDecks } from "../../Decks/Index";
+import { totalDecks } from "../../Cards/Index";
 import { useNavigate } from "react-router-dom";
+
+// Styled
 
 const Hamburger = styled("img")`
   position: absolute;
@@ -11,25 +13,33 @@ const Hamburger = styled("img")`
   justify-content: center;
   align-items: center;
 
-  color: white;
-
+  width: 4vw;
+  height: 4vw;
   top: 0;
   right: 0;
 
-  width: 4vw;
-  height: 4vw;
-
-  padding: 1vw;
-
-  z-index: 1000;
+  margin: 1vw;
 
   object-fit: contain;
+
+  color: white;
+
   cursor: pointer;
+
+  z-index: 1000;
 
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  :hover {
+    transform: scale(1.05);
+  }
+
+  :active {
+    transform: scale(1.025);
+  }
 
   @media (max-width: 1200px) {
     width: 7vw;
@@ -44,11 +54,10 @@ const Hamburger = styled("img")`
 const SideBarContainer = styled("div")`
   position: fixed;
 
-  top: 0;
-  left: 0;
-
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
 
   overflow-x: hidden;
 
@@ -66,24 +75,22 @@ const SideBarBox = styled("div")<{ isOpening: boolean }>`
   align-items: center;
   flex-direction: column;
 
-  font-size: 3vw;
-  font-weight: bold;
-  color: black;
-  text-shadow: none;
-
-  background-color: white;
-
-  top: 0;
-  right: 0;
-
   width: 40vw;
   height: 100%;
   min-height: 100vh;
+  top: 0;
+  right: 0;
 
-  box-shadow: -1px 0 20px white;
-  box-sizing: border-box;
+  background-color: white;
 
   padding: 2vw;
+  box-sizing: border-box;
+  box-shadow: -1px 0 20px white;
+
+  font-size: 3vw;
+  font-weight: bold;
+  text-shadow: none;
+  color: black;
 
   overflow-y: hidden;
   overflow-y: scroll;
@@ -94,13 +101,6 @@ const SideBarBox = styled("div")<{ isOpening: boolean }>`
   scrollbar-width: none; /* Firefox */
   :-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
-  }
-
-  @media (max-width: 1200px) {
-    width: 50vw;
-  }
-  @media (max-width: 768px) {
-    width: 60vw;
   }
 
   animation: ${(props) =>
@@ -125,18 +125,25 @@ const SideBarBox = styled("div")<{ isOpening: boolean }>`
       right: -50%;
     }
   }
+
+  @media (max-width: 1200px) {
+    width: 50vw;
+  }
+  @media (max-width: 768px) {
+    width: 60vw;
+  }
 `;
 
 const BackGround = styled("div")`
   position: fixed;
-  top: 0;
-  left: 0;
-
-  background-color: black;
-  opacity: 0.8;
 
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
+
+  opacity: 0.8;
+  background-color: black;
 
   z-index: 500;
 `;
@@ -149,7 +156,6 @@ const TopBox = styled("div")`
   width: 100%;
 
   padding: 0 1vw 0 1vw;
-
   box-sizing: border-box;
 `;
 
@@ -158,14 +164,18 @@ const ButtonBox = styled("div")`
   align-items: center;
   justify-content: center;
 
+  cursor: pointer;
+
   object-fit: contain;
 
   transition: transform 100ms linear;
 
-  cursor: pointer;
-
   :hover {
     transform: scale(1.1);
+  }
+
+  :active {
+    transform: scale(1.05);
   }
 `;
 
@@ -188,12 +198,12 @@ const TabContainer = styled("div")`
   align-items: center;
   flex-direction: column;
 
+  width: 100%;
+  height: 100%;
+
   gap: 1vw;
 
   padding: 4vh 0 4vh 0;
-
-  width: 100%;
-  height: 100%;
 `;
 
 const TabBox = styled("div")<{ isSelected: boolean }>`
@@ -201,17 +211,16 @@ const TabBox = styled("div")<{ isSelected: boolean }>`
   justify-content: flex-start;
   align-items: center;
 
-  font-size: 2vw;
-
-  background-color: ${(props) => props.isSelected && "#60b1d6"};
-
   width: 100%;
-
-  padding: 1vh 2vw 1vh 2vw;
 
   border-radius: 10px;
 
+  background-color: ${(props) => props.isSelected && "#60b1d6"};
+
+  padding: 1vh 2vw 1vh 2vw;
   box-sizing: border-box;
+
+  font-size: 2vw;
 
   cursor: pointer;
 
@@ -221,6 +230,10 @@ const TabBox = styled("div")<{ isSelected: boolean }>`
     transform: scale(1.03);
 
     background-color: ${(props) => !props.isSelected && "#c8eeff"};
+  }
+
+  :active {
+    transform: scale(1.01);
   }
 
   @media (max-width: 1200px) {
@@ -236,15 +249,14 @@ const SubTabBox = styled("div")`
   justify-content: flex-start;
   align-items: center;
 
-  font-size: 1.2vw;
-
   width: 100%;
-
-  padding: 0.5vh 2vw 0.5vh 2vw;
 
   border-radius: 10px;
 
+  padding: 0.5vh 2vw 0.5vh 2vw;
   box-sizing: border-box;
+
+  font-size: 1.2vw;
 
   cursor: pointer;
 
@@ -256,6 +268,10 @@ const SubTabBox = styled("div")`
     background-color: #ffe3c8;
   }
 
+  :active {
+    transform: scale(1.01);
+  }
+
   @media (max-width: 1200px) {
     font-size: 3vw;
   }
@@ -264,25 +280,35 @@ const SubTabBox = styled("div")`
   }
 `;
 
+// Component
+
 const SideBar = () => {
+  // usestate
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpening, setIsOpening] = useState<boolean>(true);
   const [isSelected, setIsSelected] = useState<string>("");
 
   const navigate = useNavigate();
 
+  // 탭 리스트  { title : 탭 제목, sub? : 서브 목록}
+  const TabList = [{ title: "덱 리스트", sub: totalDecks }];
+
+  // 사이드바 여는 함수
   const handleOpenSidebar = () => {
     setIsOpening(true);
     setIsOpen(true);
   };
 
+  // 사이드바 닫는 함수
   const handleCloseSidebar = () => {
     setIsOpening(false);
+    setIsSelected("");
     setTimeout(() => {
       setIsOpen(false);
-    }, 290);
+    }, 1000);
   };
 
+  // isOpen이 false일 시, 햄버거 버튼 표시
   if (!isOpen) {
     return (
       <Hamburger
@@ -293,65 +319,61 @@ const SideBar = () => {
     );
   }
 
-  const TabList = [
-    { title: "덱 리스트", sub: totalDecks },
-    { title: "빈 칸" },
-    { title: "빈 칸" },
-    { title: "빈 칸" },
-  ];
-
-  return (
-    <>
-      <SideBarContainer>
-        <SideBarBox isOpening={isOpening}>
-          <TopBox>
-            <ButtonBox
-              onClick={() => {
-                navigate("/");
-                handleCloseSidebar();
-              }}
-            >
-              <Button src="/Icons/home.svg" alt="메인으로" />
-            </ButtonBox>
-            <ButtonBox onClick={handleCloseSidebar}>
-              <Button src="/Icons/Exit.svg" alt="닫기" />
-            </ButtonBox>
-          </TopBox>
-          <TabContainer>
-            {TabList.map((tab, idx) => (
-              <Fragment key={`${tab}-${idx}`}>
-                <TabBox
-                  onClick={() => {
-                    if (`tab-${idx}` === isSelected) {
-                      setIsSelected("");
-                    } else {
-                      setIsSelected(`tab-${idx}`);
-                    }
-                  }}
-                  isSelected={`tab-${idx}` === isSelected}
-                >
-                  {tab.title}
-                </TabBox>
-                {`tab-${idx}` === isSelected &&
-                  tab.sub?.map((subtab, idx) => (
-                    <SubTabBox
-                      key={`${subtab}-${idx}`}
-                      onClick={() => {
-                        navigate(`/deck/${subtab.eng}`);
-                        handleCloseSidebar();
-                      }}
-                    >
-                      {subtab.name}
-                    </SubTabBox>
-                  ))}
-              </Fragment>
-            ))}
-          </TabContainer>
-        </SideBarBox>
-        <BackGround onClick={handleCloseSidebar} />
-      </SideBarContainer>
-    </>
-  );
+  // isOepn이 true일 시, 사이드바 표시
+  else {
+    return (
+      <>
+        <SideBarContainer>
+          <SideBarBox isOpening={isOpening}>
+            <TopBox>
+              <ButtonBox
+                onClick={() => {
+                  navigate("/");
+                  handleCloseSidebar();
+                }}
+              >
+                <Button src="/Icons/home.svg" alt="메인으로" />
+              </ButtonBox>
+              <ButtonBox onClick={handleCloseSidebar}>
+                <Button src="/Icons/Exit.svg" alt="닫기" />
+              </ButtonBox>
+            </TopBox>
+            <TabContainer>
+              {TabList.map((tab, idx) => (
+                <Fragment key={`${tab}-${idx}`}>
+                  <TabBox
+                    onClick={() => {
+                      if (`tab-${idx}` === isSelected) {
+                        setIsSelected("");
+                      } else {
+                        setIsSelected(`tab-${idx}`);
+                      }
+                    }}
+                    isSelected={`tab-${idx}` === isSelected}
+                  >
+                    {tab.title}
+                  </TabBox>
+                  {`tab-${idx}` === isSelected &&
+                    tab.sub?.map((subtab, idx) => (
+                      <SubTabBox
+                        key={`${subtab}-${idx}`}
+                        onClick={() => {
+                          navigate(`/deck/${subtab.eng}`);
+                          handleCloseSidebar();
+                        }}
+                      >
+                        {subtab.name}
+                      </SubTabBox>
+                    ))}
+                </Fragment>
+              ))}
+            </TabContainer>
+          </SideBarBox>
+          <BackGround onClick={handleCloseSidebar} />
+        </SideBarContainer>
+      </>
+    );
+  }
 };
 
 export default SideBar;
